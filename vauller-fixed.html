@@ -1,0 +1,2519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vauller – Dispatch AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blue:#2f54eb;--blue2:#4368f0;--blue-light:#e8eef8;
+  --navy:#0f172a;--navy2:#1e2d45;--navy3:#243352;
+  --text:#1a2340;--text2:#5a6a8a;--text3:#94a3b8;
+  --bg:#f1f4f9;--white:#ffffff;
+  --border:#e2e8f0;--border2:#d0d9e8;
+  --green:#22c55e;
+  --font:'Plus Jakarta Sans',sans-serif;
+  --poppins:'Poppins',sans-serif;
+}
+html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--text);overflow:hidden;}
+
+/* ── SCREENS ── */
+.screen{display:none;width:100vw;height:100vh;}
+.screen.active{display:flex;}
+
+/* ══════════════════════════════
+   LANDING PAGE
+══════════════════════════════ */
+#s-landing{flex-direction:column;background:#fff;overflow-y:auto;overflow-x:hidden;}
+
+.lp-nav{
+  position:sticky;top:0;z-index:50;
+  height:62px;background:rgba(255,255,255,0.97);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 48px;flex-shrink:0;
+}
+.lp-logo{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--text);}
+.lp-logo-icon{width:32px;height:32px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.lp-logo-icon svg{width:17px;height:17px;}
+.lp-logo-name{font-size:15.5px;font-weight:800;letter-spacing:0.4px;font-family:var(--poppins);}
+.lp-nav-links{display:flex;gap:36px;margin-left:50px;list-style:none;}
+.lp-nav-links a{font-size:14px;font-weight:500;color:var(--text2);text-decoration:none;}
+.lp-nav-links a:hover{color:var(--blue);}
+.lp-nav-right{margin-left:auto;display:flex;gap:10px;align-items:center;}
+.btn-nav-signin{padding:7px 20px;background:transparent;border:1.5px solid #c8d4e8;border-radius:7px;font-family:var(--font);font-size:13.5px;font-weight:600;color:var(--text);cursor:pointer;}
+.btn-nav-signin:hover{border-color:var(--navy2);}
+.btn-nav-started{padding:8px 20px;background:var(--blue);border:none;border-radius:7px;font-family:var(--font);font-size:13.5px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 2px 12px rgba(47,84,235,0.3);}
+.btn-nav-started:hover{background:#1d3fcc;}
+
+/* Hero */
+.lp-hero{
+  min-height:calc(100vh - 62px - 230px);
+  background:linear-gradient(180deg,#edf1fb 0%,#e4ecf7 45%,#fff 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:70px 20px 50px;position:relative;overflow:hidden;flex-shrink:0;
+}
+.hero-oval{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:440px;border:1.5px solid rgba(47,84,235,0.09);border-radius:50%;pointer-events:none;}
+.hero-oval2{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:650px;border:1px solid rgba(47,84,235,0.05);border-radius:50%;pointer-events:none;}
+.hero-inner{position:relative;z-index:1;max-width:660px;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.92);border:1.5px solid #d8e4f2;border-radius:99px;padding:5px 15px;font-size:10.5px;font-weight:700;letter-spacing:1.1px;color:var(--navy2);text-transform:uppercase;margin-bottom:24px;}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);}
+.hero-h1{font-family:var(--poppins);font-size:60px;font-weight:800;line-height:1.08;letter-spacing:-1.5px;color:var(--navy);margin-bottom:4px;}
+.hero-h1-muted{display:block;color:#8fa8d4;font-family:var(--poppins);font-weight:800;}
+.hero-p{font-size:16px;color:var(--text2);line-height:1.68;max-width:470px;margin:18px auto 34px;}
+.hero-btns{display:flex;align-items:center;justify-content:center;gap:13px;}
+.btn-trial{padding:13px 30px;background:linear-gradient(135deg,#3a60f0,#1d3fcc);border:none;border-radius:10px;font-family:var(--font);font-size:15px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 4px 18px rgba(47,84,235,0.35);}
+.btn-trial:hover{box-shadow:0 6px 26px rgba(47,84,235,0.5);}
+.btn-demo{padding:12px 26px;background:#fff;border:1.5px solid #c8d4e8;border-radius:10px;font-family:var(--font);font-size:15px;font-weight:600;color:var(--text);cursor:pointer;}
+.btn-demo:hover{background:#f5f8ff;}
+
+/* Features strip */
+.lp-features{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);flex-shrink:0;}
+.feat-card{padding:38px 44px;border-right:1px solid var(--border);}
+.feat-card:last-child{border-right:none;}
+.feat-card:hover{background:#f9fbff;}
+.feat-icon{width:44px;height:44px;background:var(--navy);border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.feat-icon svg{width:21px;height:21px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.feat-title{font-size:14.5px;font-weight:700;color:var(--navy);margin-bottom:7px;}
+.feat-desc{font-size:13.5px;color:var(--text2);line-height:1.6;}
+
+/* Stats strip */
+.lp-stats{background:#fff;border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);flex-shrink:0;}
+.stat-strip{padding:32px 44px;border-right:1px solid var(--border);text-align:center;}
+.stat-strip:last-child{border-right:none;}
+.stat-strip-val{font-family:var(--poppins);font-size:36px;font-weight:800;color:var(--blue);letter-spacing:-1px;margin-bottom:6px;}
+.stat-strip-label{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text3);}
+
+/* Footer */
+.lp-footer{background:#fff;border-top:1px solid var(--border);padding:18px 48px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.lp-footer-copy{font-size:12.5px;color:var(--text3);}
+.lp-footer-links{display:flex;gap:20px;}
+.lp-footer-links a{font-size:12.5px;color:var(--text3);text-decoration:none;}
+.lp-footer-links a:hover{color:var(--text);}
+
+/* ══════════════════════════════
+   FORGOT PASSWORD
+══════════════════════════════ */
+#s-forgot{background:var(--bg);align-items:center;justify-content:center;}
+.small-card{background:#fff;border-radius:16px;padding:40px 44px;width:440px;box-shadow:0 4px 32px rgba(0,0,0,0.07);}
+.card-back{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text2);cursor:pointer;margin-bottom:24px;background:none;border:none;font-family:var(--font);}
+.card-back svg{width:14px;height:14px;stroke:var(--text2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.card-back:hover{color:var(--text);}
+.card-title{font-size:26px;font-weight:800;color:var(--navy);margin-bottom:6px;letter-spacing:-0.5px;}
+.card-sub{font-size:13.5px;color:var(--text2);margin-bottom:26px;line-height:1.55;}
+
+/* ══════════════════════════════
+   LOGIN
+══════════════════════════════ */
+#s-login{background:var(--bg);}
+.login-left{
+  width:375px;min-width:375px;
+  background:var(--navy2);
+  display:flex;flex-direction:column;
+  padding:32px 28px;
+  background-image:
+    radial-gradient(circle at 20% 80%,rgba(47,84,235,0.15) 0%,transparent 50%),
+    radial-gradient(circle at 80% 20%,rgba(47,84,235,0.1) 0%,transparent 50%);
+}
+.login-logo{display:flex;align-items:center;gap:9px;margin-bottom:40px;}
+.login-logo-icon{width:34px;height:34px;background:rgba(255,255,255,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.login-logo-icon svg{width:18px;height:18px;}
+.login-logo-name{font-size:15px;font-weight:800;color:#fff;letter-spacing:0.3px;font-family:var(--poppins);}
+.login-logo-sub{font-size:9px;font-weight:600;letter-spacing:1.5px;color:rgba(255,255,255,0.45);text-transform:uppercase;}
+.login-nav-item{display:flex;align-items:flex-start;gap:12px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.07);}
+.login-nav-icon{width:32px;height:32px;background:rgba(255,255,255,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.login-nav-icon svg{width:15px;height:15px;stroke:rgba(255,255,255,0.8);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.login-nav-title{font-size:13.5px;font-weight:700;color:#fff;margin-bottom:3px;}
+.login-nav-desc{font-size:12px;color:rgba(255,255,255,0.5);}
+.login-right{flex:1;display:flex;align-items:center;justify-content:center;background:var(--bg);}
+.login-card{background:#fff;border-radius:16px;padding:40px 44px;width:440px;box-shadow:0 4px 32px rgba(0,0,0,0.07);}
+.form-label{display:block;font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:7px;}
+.form-label.upper{text-transform:uppercase;letter-spacing:0.5px;font-size:11px;}
+.form-group{margin-bottom:18px;position:relative;}
+.form-input{width:100%;border:1.5px solid var(--border2);border-radius:99px;padding:11px 20px;font-family:var(--font);font-size:13.5px;color:var(--text);outline:none;background:#fff;}
+.form-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,84,235,0.1);}
+.form-input::placeholder{color:var(--text3);}
+.input-eye{position:absolute;right:16px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--text3);background:none;border:none;display:flex;align-items:center;justify-content:center;}
+.input-eye svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.form-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
+.remember{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--text2);cursor:pointer;}
+.remember input{width:14px;height:14px;accent-color:var(--navy2);}
+.forgot-link{font-size:13px;font-weight:600;color:var(--blue);cursor:pointer;background:none;border:none;font-family:var(--font);}
+.btn-blue-full{width:100%;background:linear-gradient(135deg,var(--blue2),#1d3fcc);border:none;border-radius:99px;padding:13px;font-family:var(--font);font-size:14.5px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 3px 14px rgba(47,84,235,0.35);}
+.btn-blue-full:hover{opacity:0.92;}
+.or-divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--text3);font-size:12px;}
+.or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.signup-link{text-align:center;font-size:13px;color:var(--text2);}
+.signup-link a{color:var(--blue);font-weight:700;cursor:pointer;text-decoration:none;}
+
+/* ══════════════════════════════
+   VERIFY EMAIL
+══════════════════════════════ */
+#s-verify{background:var(--bg);align-items:center;justify-content:center;}
+.verify-card{background:#fff;border-radius:16px;padding:40px 44px;width:460px;box-shadow:0 4px 32px rgba(0,0,0,0.07);}
+.otp-row{display:flex;gap:10px;margin:28px 0 26px;}
+.otp-box{flex:1;height:58px;border:1.5px solid var(--border2);border-radius:10px;font-family:var(--poppins);font-size:22px;font-weight:700;text-align:center;color:var(--navy);outline:none;background:#fff;}
+.otp-box:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,84,235,0.1);}
+.otp-box.filled{border-color:var(--blue);background:#f0f5ff;}
+
+/* ══════════════════════════════
+   ADD PLANTS (onboarding)
+══════════════════════════════ */
+#s-add-plants{background:var(--bg);align-items:center;justify-content:center;overflow-y:auto;}
+.plants-card{background:#fff;border-radius:16px;padding:40px 44px;width:640px;margin:30px;box-shadow:0 4px 32px rgba(0,0,0,0.07);}
+.plants-title{font-size:26px;font-weight:800;color:var(--navy);margin-bottom:6px;letter-spacing:-0.5px;}
+.plants-sub{font-size:13.5px;color:var(--text2);margin-bottom:24px;}
+.plant-block{background:var(--bg);border-radius:12px;padding:22px 22px 18px;margin-bottom:12px;border:1px solid var(--border);}
+.plant-block-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:16px;}
+.plant-block-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.remove-plant{background:none;border:none;cursor:pointer;color:var(--text3);font-size:18px;line-height:1;}
+.remove-plant:hover{color:#ef4444;}
+.input-std{width:100%;border:1.5px solid var(--border2);border-radius:99px;padding:10px 18px;font-family:var(--font);font-size:13.5px;color:var(--text);outline:none;background:#fff;margin-bottom:12px;}
+.input-std:focus{border-color:var(--blue);}
+.input-std::placeholder{color:var(--text3);}
+.input-std:last-child{margin-bottom:0;}
+.btn-add-another{width:100%;border:1.5px dashed var(--border2);background:transparent;border-radius:10px;padding:13px;font-family:var(--font);font-size:13.5px;font-weight:600;color:var(--text2);cursor:pointer;margin-bottom:20px;}
+.btn-add-another:hover{border-color:var(--blue);color:var(--blue);}
+.plants-footer{display:flex;justify-content:flex-end;gap:12px;padding-top:16px;border-top:1px solid var(--border);}
+.btn-back-plain{padding:10px 22px;background:transparent;border:none;font-family:var(--font);font-size:14px;font-weight:600;color:var(--text2);cursor:pointer;}
+.btn-continue{padding:10px 22px;background:var(--blue);border:none;border-radius:8px;font-family:var(--font);font-size:14px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 2px 10px rgba(47,84,235,0.3);}
+
+/* ══════════════════════════════
+   APP SHELL
+══════════════════════════════ */
+#s-app{flex-direction:column;}
+
+/* Topbar - minimal (no sidebar, just logo + right) */
+.app-topbar{
+  height:50px;background:var(--navy);
+  display:flex;align-items:center;padding:0 24px;gap:14px;flex-shrink:0;
+  position:relative;
+}
+.app-logo{display:flex;align-items:center;gap:8px;}
+.app-logo-icon{width:28px;height:28px;border-radius:7px;border:1.5px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;}
+.app-logo-icon svg{width:14px;height:14px;}
+.app-logo-name{font-size:13px;font-weight:800;color:#fff;letter-spacing:0.3px;line-height:1;font-family:var(--poppins);}
+.app-logo-sub{font-size:8.5px;font-weight:600;letter-spacing:1.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;}
+.app-topbar-right{margin-left:auto;display:flex;align-items:center;gap:16px;}
+.topbar-orders-wrap{text-align:right;}
+.topbar-orders-num{font-size:15px;font-weight:700;color:#fff;line-height:1;}
+.topbar-orders-label{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.45);}
+.notif-btn{position:relative;width:30px;height:30px;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.notif-btn svg{width:18px;height:18px;stroke:rgba(255,255,255,0.7);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.notif-badge{position:absolute;top:2px;right:2px;width:8px;height:8px;background:var(--blue);border-radius:50%;border:2px solid var(--navy);}
+.topbar-time{font-size:12.5px;color:rgba(255,255,255,0.55);font-weight:500;white-space:nowrap;}
+.topbar-signout-btn{font-size:13px;font-weight:600;color:rgba(255,255,255,0.75);background:transparent;border:none;cursor:pointer;font-family:var(--font);}
+.topbar-signout-btn:hover{color:#fff;}
+
+/* App body */
+.app-body{flex:1;display:flex;overflow:hidden;}
+
+/* Sidebar */
+.sidebar{
+  width:175px;min-width:175px;
+  background:var(--navy);
+  display:flex;flex-direction:column;
+  padding:16px 0;
+  border-right:1px solid rgba(255,255,255,0.05);
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 18px;
+  font-size:13px;font-weight:500;
+  color:rgba(255,255,255,0.55);
+  cursor:pointer;transition:all 0.15s;
+  border-left:3px solid transparent;
+  background:none;border-top:none;border-bottom:none;border-right:none;
+  width:100%;text-align:left;font-family:var(--font);
+}
+.nav-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.nav-item:hover{color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.05);}
+.nav-item.active{color:#fff;background:rgba(255,255,255,0.08);border-left-color:var(--blue);font-weight:600;}
+.sidebar-bottom{margin-top:auto;padding:12px 16px;border-top:1px solid rgba(255,255,255,0.07);}
+.sidebar-user{display:flex;align-items:center;gap:9px;}
+.sidebar-avatar{width:30px;height:30px;border-radius:50%;background:#3b5998;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;}
+.sidebar-user-name{font-size:12px;font-weight:600;color:#fff;line-height:1.2;}
+.sidebar-user-email{font-size:10px;color:rgba(255,255,255,0.4);}
+.sidebar-signout{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:11.5px;color:rgba(255,255,255,0.4);cursor:pointer;padding-left:2px;background:none;border:none;font-family:var(--font);}
+.sidebar-signout svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.sidebar-signout:hover{color:rgba(255,255,255,0.7);}
+
+/* Main content */
+.main-content{flex:1;overflow-y:auto;background:var(--bg);}
+.page-header-bar{height:52px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;position:sticky;top:0;z-index:20;}
+.page-title-bar{font-size:17px;font-weight:800;color:var(--navy);letter-spacing:-0.3px;}
+.page-sub-small{font-size:12px;color:var(--text3);}
+.plant-pill{display:inline-flex;align-items:center;gap:6px;background:var(--blue-light);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:600;color:var(--blue);margin-left:16px;}
+.plant-pill-icon{width:14px;height:14px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.plant-pill-icon svg{width:8px;height:8px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ══════════════════════════════
+   NO PLANTS EMPTY STATE
+══════════════════════════════ */
+.empty-state{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--bg);
+}
+.empty-icon{width:64px;height:64px;background:#e8edf5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.empty-icon svg{width:28px;height:28px;stroke:#94a3b8;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.empty-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:7px;}
+.empty-sub{font-size:13.5px;color:var(--text2);margin-bottom:22px;}
+.btn-add-first{padding:11px 26px;background:linear-gradient(135deg,#3a60f0,#1d3fcc);border:none;border-radius:8px;font-family:var(--font);font-size:14px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 2px 14px rgba(47,84,235,0.3);}
+.btn-add-first:hover{opacity:0.92;}
+
+/* ══════════════════════════════
+   PLANTS PAGE (with plants)
+══════════════════════════════ */
+.plants-page{padding:28px 32px;}
+.plants-page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;}
+.plants-page-title{font-size:24px;font-weight:800;color:var(--navy);letter-spacing:-0.5px;}
+.plants-page-sub{font-size:13.5px;color:var(--text2);margin-top:3px;}
+.btn-add-blue{padding:9px 18px;background:linear-gradient(135deg,#3a60f0,#1d3fcc);border:none;border-radius:8px;font-family:var(--font);font-size:13.5px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 2px 10px rgba(47,84,235,0.25);}
+.plants-grid{display:flex;flex-wrap:wrap;gap:20px;}
+.plant-card{width:290px;background:#fff;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s;}
+.plant-card.selected{border:2px solid var(--blue);}
+.plant-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+.plant-card-body{padding:20px 20px 16px;}
+.plant-card-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.plant-card-icon{width:40px;height:40px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.plant-card-icon svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.plant-card-name{font-size:15px;font-weight:700;color:var(--navy);}
+.plant-card-loc{font-size:12.5px;color:var(--text2);}
+.plant-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:8px;overflow:hidden;margin-bottom:14px;}
+.plant-stat{background:#fff;padding:9px 14px;}
+.plant-stat-label{font-size:9.5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);margin-bottom:2px;}
+.plant-stat-val{font-size:20px;font-weight:800;color:var(--navy);}
+.plant-admin-label{font-size:11px;color:var(--text3);margin-bottom:1px;}
+.plant-admin-val{font-size:12.5px;color:var(--text2);margin-bottom:10px;}
+.plant-selected-row{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--blue);}
+.plant-selected-row svg{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.plant-card-footer{border-top:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--text2);}
+.plant-card-footer svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.plant-card-footer:hover{color:var(--blue);}
+
+/* ══════════════════════════════
+   NOTIFICATIONS PANEL
+══════════════════════════════ */
+.notif-panel{
+  position:absolute;top:50px;right:8px;
+  width:340px;background:#fff;
+  border-radius:12px;border:1px solid var(--border);
+  box-shadow:0 8px 40px rgba(0,0,0,0.12);
+  z-index:200;display:none;
+}
+.notif-panel.open{display:block;animation:fadeDown 0.18s ease;}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.notif-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);}
+.notif-head-title{font-size:14px;font-weight:700;color:var(--navy);}
+.notif-head-right{display:flex;align-items:center;gap:8px;}
+.mark-read{font-size:12px;font-weight:600;color:var(--blue);cursor:pointer;background:none;border:none;font-family:var(--font);}
+.notif-new-badge{background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;}
+.notif-item{display:flex;gap:12px;padding:13px 18px;border-bottom:1px solid var(--border);cursor:pointer;}
+.notif-item:hover{background:#f8faff;}
+.notif-item:last-of-type{border-bottom:none;}
+.notif-icon-c{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.notif-icon-c svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.notif-item-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+.notif-item-desc{font-size:12px;color:var(--text2);line-height:1.4;}
+.notif-item-time{font-size:11px;color:var(--text3);margin-top:3px;}
+.notif-dot-blue{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px;}
+.notif-footer-link{padding:12px 18px;font-size:13px;font-weight:600;color:var(--blue);cursor:pointer;display:block;}
+
+/* ══════════════════════════════
+   MODAL
+══════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center;z-index:300;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:14px;padding:32px 36px;width:440px;box-shadow:0 8px 40px rgba(0,0,0,0.15);}
+.modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
+.modal-title{font-size:18px;font-weight:800;color:var(--navy);}
+.modal-sub-text{font-size:13px;color:var(--text2);margin-top:4px;}
+.modal-close-btn{width:28px;height:28px;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text3);border-radius:6px;}
+.modal-close-btn:hover{background:var(--bg);}
+.modal-close-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.modal-label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:7px;}
+.modal-input{width:100%;border:1.5px solid var(--border2);border-radius:99px;padding:10px 18px;font-family:var(--font);font-size:13.5px;color:var(--text);outline:none;background:#fff;margin-bottom:14px;}
+.modal-input:focus{border-color:var(--blue);}
+.modal-input::placeholder{color:var(--text3);}
+.modal-hint-text{font-size:12px;color:var(--text3);margin-bottom:4px;}
+.modal-footer-btns{display:flex;gap:10px;margin-top:22px;}
+.btn-modal-cancel{flex:1;padding:11px;background:transparent;border:1.5px solid var(--border2);border-radius:8px;font-family:var(--font);font-size:14px;font-weight:600;color:var(--text);cursor:pointer;}
+.btn-modal-cancel:hover{background:var(--bg);}
+.btn-modal-add{flex:1;padding:11px;background:linear-gradient(135deg,var(--blue2),#1d3fcc);border:none;border-radius:8px;font-family:var(--font);font-size:14px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 2px 10px rgba(47,84,235,0.3);}
+
+/* ══════════════════════════════
+   DASHBOARD
+══════════════════════════════ */
+.dashboard-content{padding:24px 28px;}
+.stat-cards-grid{display:grid;grid-template-columns:repeat(3,1fr) 310px;gap:16px;margin-bottom:22px;}
+.stat-card{background:#fff;border-radius:12px;padding:20px 22px;border:1px solid var(--border);}
+.stat-card-label{font-size:10.5px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.stat-card-label svg{width:18px;height:18px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.stat-card-value{font-size:32px;font-weight:800;color:var(--navy);letter-spacing:-1px;margin-bottom:5px;}
+.stat-card-sub{font-size:12px;color:var(--text3);}
+.stat-card-sub.green{color:var(--green);}
+.agent-card{background:#fff;border-radius:12px;padding:20px 22px;border:2px solid var(--blue);}
+.agent-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.agent-avatar{width:42px;height:42px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.agent-avatar svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.agent-name{font-size:15px;font-weight:700;color:var(--navy);}
+.agent-type{font-size:11.5px;color:var(--text2);}
+.agent-live{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--green);margin-left:auto;}
+.agent-live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);}
+.agent-phone-row{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
+.agent-phone-label{font-size:10px;color:var(--text3);letter-spacing:0.5px;}
+.agent-phone-val{font-size:14px;font-weight:700;color:var(--navy);}
+.agent-handling-row{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text2);margin-top:12px;}
+.agent-handling-val{font-size:14px;font-weight:800;color:var(--navy);}
+.chart-card{background:#fff;border-radius:12px;border:1px solid var(--border);padding:22px 24px;margin-bottom:22px;}
+.chart-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+.chart-card-title{font-size:14.5px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
+.chart-card-title svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.chart-period-btn{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:4px 12px;font-family:var(--font);font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;letter-spacing:0.5px;}
+.chart-bars{display:flex;align-items:flex-end;gap:10px;height:160px;padding:0 4px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.bar-fill{width:100%;background:linear-gradient(180deg,#4a90e2,#2f54eb);border-radius:6px 6px 0 0;min-height:20px;}
+.bar-lbl{font-size:11px;color:var(--text3);font-weight:500;}
+.activity-card{background:#fff;border-radius:12px;border:1px solid var(--border);padding:22px 24px;}
+.activity-title{font-size:14.5px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.activity-title svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.act-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.act-row:last-child{border-bottom:none;}
+.act-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.act-text{flex:1;}
+.act-title-text{font-size:13.5px;font-weight:600;color:var(--navy);}
+.act-sub-text{font-size:12px;color:var(--text2);}
+.act-time-text{font-size:11.5px;color:var(--text3);white-space:nowrap;}
+
+/* ══════════════════════════════
+   CALL LOG
+══════════════════════════════ */
+.cl-header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid var(--border);background:#fff;}
+.cl-title{font-size:15px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
+.cl-title svg{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.search-pill{display:flex;align-items:center;gap:7px;border:1px solid var(--border2);border-radius:99px;padding:7px 15px;background:#fff;}
+.search-pill svg{width:13px;height:13px;stroke:var(--text3);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.search-pill input{border:none;outline:none;font-family:var(--font);font-size:13px;color:var(--text);background:transparent;width:140px;}
+.count-badge{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--text2);}
+.call-row{border-bottom:1px solid var(--border);background:#fff;}
+.call-row-hd{display:flex;align-items:center;padding:14px 24px;cursor:pointer;gap:16px;}
+.call-row-hd:hover{background:#fafbff;}
+.call-id{font-size:13.5px;font-weight:700;color:var(--navy);}
+.call-co{font-size:12px;color:var(--text2);}
+.call-meta{display:flex;align-items:center;gap:14px;margin-left:auto;}
+.call-tm{font-size:13px;color:var(--text2);}
+.badge-done{background:#dcfce7;color:#15803d;font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;}
+.expand-btn{background:transparent;border:none;cursor:pointer;color:var(--text3);display:flex;align-items:center;}
+.expand-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.call-detail{display:none;grid-template-columns:1fr 1fr;gap:16px;padding:0 24px 20px;background:#fff;}
+.call-detail.open{display:grid;}
+.detail-box{background:var(--bg);border-radius:10px;padding:16px 18px;}
+.detail-box-title{font-size:10px;font-weight:700;letter-spacing:0.7px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.detail-box-title svg{width:13px;height:13px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.summary-txt{font-size:13px;color:var(--text2);line-height:1.55;}
+.audio-wrap{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.play-btn{width:30px;height:30px;background:var(--blue);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.play-btn svg{width:11px;height:11px;fill:#fff;}
+.audio-bar{flex:1;height:4px;background:var(--border);border-radius:99px;overflow:hidden;}
+.audio-progress{width:65%;height:100%;background:var(--blue);border-radius:99px;}
+.audio-dur{font-size:12px;color:var(--text3);}
+.transcript-scroll{background:var(--bg);border-radius:10px;padding:14px;height:280px;overflow-y:auto;}
+.t-bub{margin-bottom:10px;}
+.t-lbl{font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px;}
+.t-lbl.ai{color:var(--blue);}
+.t-lbl.caller{color:var(--text3);text-align:right;}
+.t-msg{display:inline-block;padding:9px 13px;border-radius:10px;font-size:12.5px;line-height:1.45;max-width:85%;}
+.t-msg.ai{background:var(--blue);color:#fff;border-radius:10px 10px 10px 2px;}
+.t-msg.caller{background:#fff;color:var(--text);border:1px solid var(--border);border-radius:10px 10px 2px 10px;float:right;}
+.t-bub.caller-side{text-align:right;}
+.clearfix::after{content:'';display:table;clear:both;}
+
+/* ══════════════════════════════
+   ORDER HISTORY
+══════════════════════════════ */
+.ord-header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid var(--border);background:#fff;}
+.ord-title{font-size:15px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
+.ord-title svg{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.ord-row{border-bottom:1px solid var(--border);background:#fff;}
+.ord-row-hd{display:flex;align-items:center;padding:14px 24px;cursor:pointer;gap:16px;}
+.ord-row-hd:hover{background:#fafbff;}
+.ord-id{font-size:13.5px;font-weight:700;color:var(--navy);}
+.ord-co{font-size:12px;font-weight:600;color:var(--blue);}
+.ord-meta{display:flex;align-items:center;gap:14px;margin-left:auto;}
+.ord-spec{font-size:13px;color:var(--text2);}
+.badge-delivered{background:#dcfce7;color:#15803d;font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;}
+.ord-detail{display:none;grid-template-columns:1fr 1fr;gap:16px;padding:0 24px 20px;background:#fff;}
+.ord-detail.open{display:grid;}
+.ord-col{display:flex;flex-direction:column;gap:12px;}
+.ord-info-box{background:var(--bg);border-radius:10px;padding:16px 18px;}
+.ord-box-title{font-size:10px;font-weight:700;letter-spacing:0.7px;text-transform:uppercase;color:var(--text3);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.ord-box-title svg{width:13px;height:13px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.ord-field{margin-bottom:10px;}
+.ord-field:last-child{margin-bottom:0;}
+.ord-field-label{font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--text3);margin-bottom:2px;}
+.ord-field-val{font-size:13.5px;font-weight:600;color:var(--navy);}
+.status-delivered-badge{display:inline-block;border:1.5px solid var(--green);color:var(--green);border-radius:6px;padding:3px 10px;font-size:11.5px;font-weight:700;}
+.ord-summary-txt{font-size:13px;color:var(--blue);line-height:1.55;}
+
+/* ══════════════════════════════
+   SETTINGS
+══════════════════════════════ */
+.settings-content{padding:24px 28px;}
+.stabs-row{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap;}
+.stab{display:flex;align-items:center;gap:7px;padding:8px 16px;border:1.5px solid var(--border);border-radius:99px;background:#fff;font-family:var(--font);font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;}
+.stab svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.stab:hover{border-color:var(--blue);color:var(--blue);}
+.stab.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+.stab-panel{display:none;}
+.stab-panel.active{display:block;}
+.stab-card{background:#fff;border-radius:12px;border:1px solid var(--border);padding:26px 28px;max-width:880px;}
+.stab-card-title{font-size:15px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;margin-bottom:22px;}
+.stab-card-title svg{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.stab-card-desc{font-size:13px;color:var(--text2);margin-bottom:20px;margin-top:-12px;}
+.avatar-section{display:flex;align-items:center;gap:16px;margin-bottom:22px;}
+.big-avatar{width:58px;height:58px;border-radius:50%;background:var(--navy3);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0;}
+.change-photo-link{font-size:13.5px;font-weight:700;color:var(--blue);cursor:pointer;display:block;margin-bottom:3px;}
+.change-photo-hint{font-size:11.5px;color:var(--text3);}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.field-item label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:7px;}
+.field-input{width:100%;border:1.5px solid var(--border2);border-radius:99px;padding:10px 18px;font-family:var(--font);font-size:13.5px;color:var(--text);outline:none;background:#fff;}
+.field-input:focus{border-color:var(--blue);}
+.field-select{width:100%;border:1.5px solid var(--border2);border-radius:99px;padding:10px 18px;font-family:var(--font);font-size:13.5px;color:var(--text);outline:none;background:#fff;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.stab-footer{display:flex;justify-content:flex-end;gap:12px;margin-top:22px;max-width:880px;}
+.btn-cancel-out{padding:10px 22px;background:transparent;border:1.5px solid var(--border2);border-radius:8px;font-family:var(--font);font-size:14px;font-weight:600;color:var(--text);cursor:pointer;}
+.btn-save-all{display:flex;align-items:center;gap:7px;padding:10px 22px;background:linear-gradient(135deg,var(--blue2),#1d3fcc);border:none;border-radius:8px;font-family:var(--font);font-size:14px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 2px 10px rgba(47,84,235,0.3);}
+.btn-save-all svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px;}
+
+.hidden{display:none!important;}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     LANDING PAGE
+════════════════════════════════════════ -->
+<div class="screen active" id="s-landing" style="flex-direction:column;overflow-y:auto;">
+  <nav class="lp-nav">
+    <a href="#" class="lp-logo">
+      <div class="lp-logo-icon">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.8"/><path d="M10 6.5C8.067 6.5 6.5 8.067 6.5 10S8.067 13.5 10 13.5c1.38 0 2.576-.79 3.17-1.95" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M13.5 9.5l-.3-1.8-1.7 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="lp-logo-name">VAULLER</span>
+    </a>
+    <ul class="lp-nav-links">
+      <li><a href="#">Features</a></li>
+      <li><a href="#">Performance</a></li>
+    </ul>
+    <div class="lp-nav-right">
+      <button class="btn-nav-signin" onclick="showScreen('s-login')">Sign In</button>
+      <button class="btn-nav-started" onclick="showScreen('s-login')">Get Started</button>
+    </div>
+  </nav>
+
+  <section class="lp-hero">
+    <div class="hero-oval"></div>
+    <div class="hero-oval2"></div>
+    <div class="hero-inner">
+      <div class="hero-badge"><span class="hero-badge-dot"></span>AI-POWERED DISPATCH</div>
+      <h1 class="hero-h1">Concrete Dispatch,<span class="hero-h1-muted">Reimagined</span></h1>
+      <p class="hero-p">Voice AI that answers calls, captures orders, and syncs with Command Alkon—all in real time. Deploy in under 60 seconds.</p>
+      <div class="hero-btns">
+        <button class="btn-trial" onclick="showScreen('s-login')">Start Free Trial</button>
+        <button class="btn-demo">Watch Demo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features strip -->
+  <section class="lp-features">
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z" transform="translate(1,1) scale(0.9)"/></svg></div>
+      <div class="feat-title">Voice AI Agent</div>
+      <div class="feat-desc">Natural conversations that capture complex concrete specs without human intervention.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg></div>
+      <div class="feat-title">Real-Time Sync</div>
+      <div class="feat-desc">Instant Command Alkon integration. Orders appear in your system before the call ends.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="feat-title">Smart Escalation</div>
+      <div class="feat-desc">Hot transfer to dispatchers with full context when edge cases require human judgment.</div>
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <section class="lp-stats">
+    <div class="stat-strip">
+      <div class="stat-strip-val">98.4%</div>
+      <div class="stat-strip-label">Capture Accuracy</div>
+    </div>
+    <div class="stat-strip">
+      <div class="stat-strip-val">&lt;1.2s</div>
+      <div class="stat-strip-label">Avg Latency</div>
+    </div>
+    <div class="stat-strip">
+      <div class="stat-strip-val">24/7</div>
+      <div class="stat-strip-label">Availability</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="lp-footer">
+    <div class="lp-footer-copy">© 2026 Vauller. All rights reserved.</div>
+    <div class="lp-footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Support</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     LOGIN
+════════════════════════════════════════ -->
+<div class="screen" id="s-login">
+  <div class="login-left">
+    <div class="login-logo">
+      <div class="login-logo-icon">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.8"/><path d="M10 6.5C8.067 6.5 6.5 8.067 6.5 10S8.067 13.5 10 13.5c1.38 0 2.576-.79 3.17-1.95" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M13.5 9.5l-.3-1.8-1.7 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="login-logo-name">VAULLER</div>
+        <div class="login-logo-sub">Dispatch AI</div>
+      </div>
+    </div>
+    <div class="login-nav-item">
+      <div class="login-nav-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
+      <div><div class="login-nav-title">Voice AI Dispatcher</div><div class="login-nav-desc">Natural language order capture</div></div>
+    </div>
+    <div class="login-nav-item">
+      <div class="login-nav-icon"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg></div>
+      <div><div class="login-nav-title">Command Alkon Sync</div><div class="login-nav-desc">Real-time bidirectional integration</div></div>
+    </div>
+    <div class="login-nav-item">
+      <div class="login-nav-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div><div class="login-nav-title">Smart Escalation</div><div class="login-nav-desc">Hot transfer with full context</div></div>
+    </div>
+  </div>
+  <div class="login-right">
+    <div class="login-card">
+      <button class="card-back" onclick="showScreen('s-landing')">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Back
+      </button>
+      <div class="card-title">Sign In</div>
+      <div class="card-sub" style="margin-bottom:26px;">Welcome back. Enter your credentials to continue.</div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="you@company.com" id="login-email">
+      </div>
+      <div class="form-group">
+        <label class="form-label upper">Password</label>
+        <input type="password" class="form-input" placeholder="Enter password" id="login-pass">
+        <button class="input-eye" onclick="togglePass()" type="button">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div class="form-row">
+        <label class="remember"><input type="checkbox" checked> Remember me</label>
+        <button class="forgot-link" onclick="showScreen('s-forgot')">Forgot password?</button>
+      </div>
+      <button class="btn-blue-full" onclick="handleSignIn()">Sign In</button>
+      <div class="or-divider">OR</div>
+      <div class="signup-link">Don't have an account? <a onclick="showScreen('s-signup')">Sign Up</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SIGN UP SCREEN
+════════════════════════════════════════ -->
+<div class="screen" id="s-signup">
+  <div class="login-left">
+    <div class="login-logo">
+      <div class="login-logo-icon">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.8"/><path d="M10 6.5C8.067 6.5 6.5 8.067 6.5 10S8.067 13.5 10 13.5c1.38 0 2.576-.79 3.17-1.95" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M13.5 9.5l-.3-1.8-1.7 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="login-logo-name">VAULLER</div>
+        <div class="login-logo-sub">Dispatch AI</div>
+      </div>
+    </div>
+    <div style="margin-top:8px;margin-bottom:28px;">
+      <div style="font-size:20px;font-weight:800;color:#fff;font-family:var(--poppins);line-height:1.3;margin-bottom:10px;">Start dispatching smarter today</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;">Join hundreds of concrete plants using Vauller's AI to handle calls 24/7.</div>
+    </div>
+    <div class="login-nav-item">
+      <div class="login-nav-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
+      <div><div class="login-nav-title">Voice AI Dispatcher</div><div class="login-nav-desc">Natural language order capture</div></div>
+    </div>
+    <div class="login-nav-item">
+      <div class="login-nav-icon"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg></div>
+      <div><div class="login-nav-title">Command Alkon Sync</div><div class="login-nav-desc">Real-time bidirectional integration</div></div>
+    </div>
+    <div class="login-nav-item">
+      <div class="login-nav-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div><div class="login-nav-title">Smart Escalation</div><div class="login-nav-desc">Hot transfer with full context</div></div>
+    </div>
+    <!-- Trust badges -->
+    <div style="margin-top:auto;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:rgba(255,255,255,0.5);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          SOC 2 Compliant
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:rgba(255,255,255,0.5);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          256-bit Encryption
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="login-right">
+    <div class="login-card" style="width:480px;">
+      <button class="card-back" onclick="showScreen('s-login')">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Back to Sign In
+      </button>
+      <div class="card-title">Create your account</div>
+      <div class="card-sub" style="margin-bottom:24px;">Get started free — no credit card required.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" placeholder="John" id="su-fname">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" placeholder="Doe" id="su-lname">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Company / Plant Name</label>
+        <input type="text" class="form-input" placeholder="Riverside Ready Mix" id="su-company">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Work Email</label>
+        <input type="email" class="form-input" placeholder="you@company.com" id="su-email">
+      </div>
+      <div class="form-group" style="position:relative;">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" placeholder="Min. 8 characters" id="su-pass">
+        <button class="input-eye" onclick="toggleSuPass()" type="button">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <!-- Password strength -->
+      <div id="pw-strength-bar" style="display:flex;gap:4px;margin-top:-10px;margin-bottom:16px;">
+        <div id="ps1" style="flex:1;height:3px;border-radius:99px;background:var(--border);transition:background 0.3s;"></div>
+        <div id="ps2" style="flex:1;height:3px;border-radius:99px;background:var(--border);transition:background 0.3s;"></div>
+        <div id="ps3" style="flex:1;height:3px;border-radius:99px;background:var(--border);transition:background 0.3s;"></div>
+        <div id="ps4" style="flex:1;height:3px;border-radius:99px;background:var(--border);transition:background 0.3s;"></div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:20px;">
+        <input type="checkbox" id="su-terms" style="margin-top:3px;accent-color:var(--blue);">
+        <label for="su-terms" style="font-size:12.5px;color:var(--text2);line-height:1.5;cursor:pointer;">I agree to Vauller's <a href="#" style="color:var(--blue);font-weight:600;">Terms of Service</a> and <a href="#" style="color:var(--blue);font-weight:600;">Privacy Policy</a></label>
+      </div>
+      <button class="btn-blue-full" onclick="handleSignUp()">Create Account →</button>
+      <div class="signup-link" style="margin-top:16px;">Already have an account? <a onclick="showScreen('s-login')">Sign In</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     VERIFY CONFIRMED SCREEN
+════════════════════════════════════════ -->
+<div class="screen" id="s-verify-done" style="background:linear-gradient(135deg,#eef2fb 0%,#e4ecf7 100%);align-items:center;justify-content:center;">
+  <div style="width:460px;text-align:center;">
+    <div style="background:#fff;border-radius:20px;padding:48px 44px;box-shadow:0 8px 48px rgba(15,23,42,0.10);border:1px solid rgba(226,232,240,0.8);">
+      <!-- Animated checkmark -->
+      <div style="width:80px;height:80px;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:0 8px 24px rgba(34,197,94,0.30);animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div style="font-family:var(--poppins);font-size:26px;font-weight:700;color:var(--navy);margin-bottom:10px;letter-spacing:-0.4px;">Email Verified!</div>
+      <div style="font-size:14px;color:var(--text2);line-height:1.65;margin-bottom:8px;">Your email address has been successfully verified.</div>
+      <div style="font-size:13px;color:var(--text3);margin-bottom:32px;">You're all set — let's get your first concrete plant set up.</div>
+      <!-- Steps indicator -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:32px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div style="font-size:10px;font-weight:600;color:var(--blue);">Account</div>
+        </div>
+        <div style="width:48px;height:2px;background:var(--blue);margin-bottom:14px;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div style="font-size:10px;font-weight:600;color:var(--blue);">Verified</div>
+        </div>
+        <div style="width:48px;height:2px;background:var(--border);margin-bottom:14px;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:12px;font-weight:700;color:var(--text3);">3</span>
+          </div>
+          <div style="font-size:10px;font-weight:600;color:var(--text3);">Setup Plant</div>
+        </div>
+      </div>
+      <button onclick="initOnboarding();showScreen('s-add-plants');" style="width:100%;background:linear-gradient(135deg,#3a60f0,#1d3fcc);border:none;border-radius:12px;padding:14px;font-family:var(--poppins);font-size:15px;font-weight:600;color:#fff;cursor:pointer;box-shadow:0 4px 18px rgba(47,84,235,0.30);display:flex;align-items:center;justify-content:center;gap:8px;">
+        Set Up Your Plant
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+    <div style="margin-top:16px;font-size:12.5px;color:var(--text3);">Need help? <a href="#" style="color:var(--blue);font-weight:600;">Contact support</a></div>
+  </div>
+</div>
+<style>
+@keyframes popIn{from{opacity:0;transform:scale(0.5);}to{opacity:1;transform:scale(1);}}
+</style>
+
+<!-- ════════════════════════════════════════
+     FORGOT PASSWORD
+════════════════════════════════════════ -->
+<div class="screen" id="s-forgot" style="background:var(--bg);align-items:center;justify-content:center;">
+  <div class="small-card">
+    <button class="card-back" onclick="showScreen('s-login')">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Back
+    </button>
+    <div class="card-title">Forgot Password</div>
+    <div class="card-sub">Enter your email address and we'll send you a link to reset your password.</div>
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" class="form-input" placeholder="you@company.com">
+    </div>
+    <button class="btn-blue-full" onclick="showScreen('s-forgot-sent')">Send Reset Link</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     FORGOT - EMAIL SENT
+════════════════════════════════════════ -->
+<div class="screen" id="s-forgot-sent" style="background:var(--bg);align-items:center;justify-content:center;">
+  <div class="small-card" style="text-align:center;">
+    <div style="width:60px;height:60px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="card-title" style="text-align:center;margin-bottom:10px;">Email Sent!</div>
+    <div style="font-size:13.5px;color:var(--text2);line-height:1.6;margin-bottom:26px;">We've sent a password reset link to your email address. Check your inbox and follow the instructions.</div>
+    <button class="btn-blue-full" onclick="showScreen('s-login')">Back to Sign In</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     VERIFY EMAIL
+════════════════════════════════════════ -->
+<style>
+/* ── Verify Email Screen ── */
+#s-verify {
+  background: linear-gradient(135deg, #eef2fb 0%, #e4ecf7 100%);
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+#s-verify::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(47,84,235,0.08) 0%, transparent 65%);
+  top: -100px; right: -100px;
+  pointer-events: none;
+}
+#s-verify::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(34,197,94,0.06) 0%, transparent 65%);
+  bottom: -100px; left: -100px;
+  pointer-events: none;
+}
+.verify-wrap {
+  position: relative;
+  z-index: 1;
+  width: 480px;
+}
+.verify-card-new {
+  background: #fff;
+  border-radius: 20px;
+  padding: 44px 48px 40px;
+  box-shadow: 0 8px 48px rgba(15,23,42,0.10), 0 2px 8px rgba(15,23,42,0.04);
+  border: 1px solid rgba(226,232,240,0.8);
+}
+.verify-icon-wrap {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 22px;
+  box-shadow: 0 4px 16px rgba(47,84,235,0.12);
+}
+.verify-icon-wrap svg {
+  width: 30px; height: 30px;
+  stroke: var(--blue);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.verify-heading {
+  font-family: var(--poppins);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  text-align: center;
+  margin-bottom: 8px;
+  letter-spacing: -0.4px;
+}
+.verify-sub-text {
+  font-size: 13.5px;
+  color: var(--text2);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+.verify-sub-text strong {
+  color: var(--navy);
+  font-weight: 600;
+}
+/* OTP boxes */
+.otp-grid {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.otp-cell {
+  width: 60px;
+  height: 64px;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  background: #f8fafc;
+  font-family: var(--poppins);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--navy);
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.1s;
+  caret-color: var(--blue);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.otp-cell::placeholder { color: #cbd5e1; }
+.otp-cell:focus {
+  border-color: var(--blue);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(47,84,235,0.10);
+  transform: translateY(-1px);
+}
+.otp-cell.has-val {
+  border-color: var(--blue);
+  background: #f0f5ff;
+  color: var(--blue);
+}
+.otp-cell.otp-shake {
+  animation: otpShake 0.35s ease;
+  border-color: #ef4444 !important;
+  background: #fff5f5 !important;
+}
+@keyframes otpShake {
+  0%,100%{transform:translateX(0);}
+  20%{transform:translateX(-5px);}
+  40%{transform:translateX(5px);}
+  60%{transform:translateX(-4px);}
+  80%{transform:translateX(4px);}
+}
+.otp-error-msg {
+  text-align: center;
+  font-size: 12.5px;
+  color: #ef4444;
+  margin-bottom: 4px;
+  min-height: 20px;
+  font-weight: 500;
+  display: none;
+}
+.otp-timer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text3);
+  margin-bottom: 22px;
+  margin-top: 6px;
+}
+.otp-timer span { color: var(--blue); font-weight: 600; }
+.verify-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #3a60f0, #1d3fcc);
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-family: var(--poppins);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(47,84,235,0.30);
+  transition: opacity 0.2s, box-shadow 0.2s, transform 0.1s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.verify-btn:hover { opacity: 0.93; box-shadow: 0 6px 24px rgba(47,84,235,0.40); }
+.verify-btn:active { transform: scale(0.99); }
+.verify-btn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.verify-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text2);
+}
+.resend-btn {
+  background: none; border: none;
+  font-family: var(--font);
+  font-size: 13px; font-weight: 700;
+  color: var(--blue); cursor: pointer;
+  padding: 0;
+}
+.resend-btn:disabled { color: var(--text3); cursor: not-allowed; }
+.resend-success {
+  display: flex; align-items: center; justify-content: center; gap-6px;
+  text-align: center;
+  font-size: 12.5px; font-weight: 600; color: #15803d;
+  background: #dcfce7; border-radius: 8px; padding: 8px 16px;
+  margin-top: 12px; display: none;
+}
+.verify-back-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.verify-back-btn {
+  display: flex; align-items: center; gap: 5px;
+  background: none; border: none;
+  font-family: var(--font); font-size: 13px; font-weight: 600;
+  color: var(--text2); cursor: pointer;
+}
+.verify-back-btn:hover { color: var(--text); }
+.verify-back-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+
+<div class="screen" id="s-verify">
+  <div class="verify-wrap">
+    <div class="verify-card-new">
+      <!-- Back -->
+      <div class="verify-back-row">
+        <button class="verify-back-btn" onclick="showScreen('s-login')">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          Back
+        </button>
+      </div>
+
+      <!-- Email icon -->
+      <div class="verify-icon-wrap">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </div>
+
+      <!-- Heading -->
+      <div class="verify-heading">Check your inbox</div>
+      <div class="verify-sub-text">
+        We sent a 6-digit verification code to<br>
+        <strong class="verify-email-display">hamidilyas@yahoo.com</strong>
+      </div>
+
+      <!-- OTP boxes -->
+      <div class="otp-grid">
+        <input class="otp-cell" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otp0" placeholder="·" autocomplete="one-time-code" oninput="otpIn(this,0)" onkeydown="otpKd(event,0)" onfocus="otpFocus(this)">
+        <input class="otp-cell" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otp1" placeholder="·" oninput="otpIn(this,1)" onkeydown="otpKd(event,1)" onfocus="otpFocus(this)">
+        <input class="otp-cell" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otp2" placeholder="·" oninput="otpIn(this,2)" onkeydown="otpKd(event,2)" onfocus="otpFocus(this)">
+        <input class="otp-cell" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otp3" placeholder="·" oninput="otpIn(this,3)" onkeydown="otpKd(event,3)" onfocus="otpFocus(this)">
+        <input class="otp-cell" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otp4" placeholder="·" oninput="otpIn(this,4)" onkeydown="otpKd(event,4)" onfocus="otpFocus(this)">
+        <input class="otp-cell" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" id="otp5" placeholder="·" oninput="otpIn(this,5)" onkeydown="otpKd(event,5)" onfocus="otpFocus(this)">
+      </div>
+
+      <!-- Error + timer -->
+      <div class="otp-error-msg" id="otp-err">Please fill in all 6 digits.</div>
+      <div class="otp-timer" id="otp-timer">Code expires in <span id="otp-countdown">02:00</span></div>
+
+      <!-- Verify button -->
+      <button class="verify-btn" onclick="doVerify()">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Verify Email
+      </button>
+
+      <!-- Resend -->
+      <div class="verify-footer">
+        <span>Didn't receive the code?</span>
+        <button class="resend-btn" id="resend-btn" onclick="doResend()">Resend</button>
+      </div>
+      <div class="resend-success" id="resend-ok">✓ &nbsp;A new code has been sent!</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── OTP countdown timer ──────────────────
+var otpTimer = null;
+var otpSeconds = 120;
+
+function startOtpTimer() {
+  clearInterval(otpTimer);
+  otpSeconds = 120;
+  var el = document.getElementById('otp-countdown');
+  otpTimer = setInterval(function() {
+    otpSeconds--;
+    if (otpSeconds <= 0) {
+      clearInterval(otpTimer);
+      if (el) el.textContent = 'Expired';
+      document.getElementById('otp-timer').style.color = '#ef4444';
+    } else {
+      var m = Math.floor(otpSeconds / 60);
+      var s = otpSeconds % 60;
+      if (el) el.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    }
+  }, 1000);
+}
+
+// start timer when screen is shown — hook into showScreen
+var _origShowScreen = typeof showScreen === 'function' ? showScreen : null;
+
+// ── OTP input handlers ──────────────────
+function otpFocus(el) {
+  el.select();
+}
+
+function otpIn(el, idx) {
+  // allow only digits
+  el.value = el.value.replace(/[^0-9]/g, '').slice(-1);
+  // style
+  el.classList.toggle('has-val', el.value !== '');
+  el.classList.remove('otp-shake');
+  document.getElementById('otp-err').style.display = 'none';
+  // advance
+  if (el.value && idx < 5) {
+    document.getElementById('otp' + (idx + 1)).focus();
+  }
+  // auto-submit when all filled
+  var allFilled = true;
+  for (var i = 0; i < 6; i++) {
+    if (!document.getElementById('otp' + i).value) { allFilled = false; break; }
+  }
+  if (allFilled) {
+    setTimeout(doVerify, 120);
+  }
+}
+
+function otpKd(e, idx) {
+  if (e.key === 'Backspace') {
+    var el = document.getElementById('otp' + idx);
+    if (el.value) {
+      el.value = '';
+      el.classList.remove('has-val');
+    } else if (idx > 0) {
+      var prev = document.getElementById('otp' + (idx - 1));
+      prev.value = '';
+      prev.classList.remove('has-val');
+      prev.focus();
+    }
+    e.preventDefault();
+  } else if (e.key === 'ArrowLeft' && idx > 0) {
+    document.getElementById('otp' + (idx - 1)).focus();
+  } else if (e.key === 'ArrowRight' && idx < 5) {
+    document.getElementById('otp' + (idx + 1)).focus();
+  }
+}
+
+function doVerify() {
+  var code = '';
+  var allOk = true;
+  for (var i = 0; i < 6; i++) {
+    var v = document.getElementById('otp' + i).value;
+    if (!v) { allOk = false; }
+    code += v;
+  }
+  if (!allOk) {
+    var err = document.getElementById('otp-err');
+    err.style.display = 'block';
+    // shake all boxes
+    for (var j = 0; j < 6; j++) {
+      var box = document.getElementById('otp' + j);
+      box.classList.remove('otp-shake');
+      void box.offsetWidth; // reflow
+      box.classList.add('otp-shake');
+    }
+    document.getElementById('otp0').focus();
+    return;
+  }
+  clearInterval(otpTimer);
+  // Success → go to verification confirmed screen
+  showScreen('s-verify-done');
+}
+
+function doResend() {
+  // reset all boxes
+  for (var i = 0; i < 6; i++) {
+    var b = document.getElementById('otp' + i);
+    b.value = '';
+    b.classList.remove('has-val', 'otp-shake');
+  }
+  document.getElementById('otp-err').style.display = 'none';
+  document.getElementById('otp-timer').style.color = '';
+  document.getElementById('otp0').focus();
+  // show success msg
+  var ok = document.getElementById('resend-ok');
+  ok.style.display = 'flex';
+  setTimeout(function(){ ok.style.display = 'none'; }, 3500);
+  // restart timer
+  startOtpTimer();
+}
+
+// Start timer when navigating to verify screen
+// We patch showScreen to detect this
+var __origShow = window.showScreen;
+window.showScreen = function(id) {
+  __origShow(id);
+  if (id === 's-verify') {
+    // reset boxes
+    for (var i = 0; i < 6; i++) {
+      var b = document.getElementById('otp' + i);
+      if (b) { b.value = ''; b.classList.remove('has-val','otp-shake'); }
+    }
+    var err = document.getElementById('otp-err');
+    if (err) err.style.display = 'none';
+    var ok = document.getElementById('resend-ok');
+    if (ok) ok.style.display = 'none';
+    startOtpTimer();
+    setTimeout(function(){ var f = document.getElementById('otp0'); if(f) f.focus(); }, 100);
+  }
+};
+</script>
+
+<!-- ════════════════════════════════════════
+     ADD PLANTS ONBOARDING
+════════════════════════════════════════ -->
+<div class="screen" id="s-add-plants" style="background:var(--bg);align-items:center;justify-content:center;overflow-y:auto;">
+  <div class="plants-card">
+    <div class="plants-title">Add Your Plants</div>
+    <div class="plants-sub">Add one or more concrete plants to get started. You can always add more later.</div>
+    <div id="plant-blocks-container"></div>
+    <button class="btn-add-another" onclick="addPlantBlock()">+ Add Another Plant</button>
+    <div class="plants-footer">
+      <button class="btn-back-plain" onclick="showScreen('s-verify')">Back</button>
+      <button class="btn-continue" onclick="goToDashboard()">Continue to Dashboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     PLANTS SCREEN  (standalone – no sidebar)
+════════════════════════════════════════ -->
+<style>
+#s-plants { flex-direction: column; background: var(--bg); }
+
+.plants-topbar {
+  height: 50px; background: var(--navy);
+  display: flex; align-items: center; padding: 0 28px; gap: 16px; flex-shrink: 0;
+  position: relative;
+}
+.plants-topbar-logo { display: flex; align-items: center; gap: 8px; }
+.plants-topbar-icon { width: 28px; height: 28px; border-radius: 7px; border: 1.5px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; }
+.plants-topbar-name { font-size: 13px; font-weight: 800; color: #fff; font-family: var(--poppins); line-height: 1; }
+.plants-topbar-sub  { font-size: 8.5px; font-weight: 600; letter-spacing: 1.4px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+.plants-topbar-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+
+.plants-screen-body { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+/* Page title row */
+.plants-title-row {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 22px 36px 20px;
+  flex-shrink: 0;
+}
+.plants-title-row-inner { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.plants-h1 { font-family: var(--poppins); font-size: 24px; font-weight: 800; color: var(--navy); letter-spacing: -0.4px; }
+.plants-h1-sub { font-size: 13px; color: var(--text2); margin-top: 3px; }
+
+/* Search bar */
+.plants-search-wrap { position: relative; max-width: 440px; width: 100%; }
+.plants-search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--text3); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.plants-search-input {
+  width: 100%;
+  border: 1.5px solid var(--border2);
+  border-radius: 99px;
+  padding: 11px 18px 11px 42px;
+  font-family: var(--font); font-size: 13.5px; color: var(--text);
+  outline: none; background: var(--bg);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.plants-search-input:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px rgba(47,84,235,0.08); }
+.plants-search-input::placeholder { color: var(--text3); }
+
+/* Cards scroll area */
+.plants-cards-area { flex: 1; overflow-y: auto; padding: 24px 36px 36px; }
+.plants-cards-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+.plant-card-standalone {
+  width: 288px;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  cursor: default;
+}
+.plant-card-standalone:hover { border-color: var(--blue); box-shadow: 0 6px 28px rgba(47,84,235,0.10); transform: translateY(-2px); }
+.pc-body { padding: 20px 20px 16px; }
+.pc-top { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
+.pc-icon { width: 44px; height: 44px; border-radius: 11px; background: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 3px 10px rgba(47,84,235,0.25); }
+.pc-icon svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pc-name { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 2px; line-height: 1.2; }
+.pc-loc { font-size: 12px; color: var(--text2); display: flex; align-items: center; gap: 4px; }
+.pc-loc svg { width: 11px; height: 11px; stroke: var(--text3); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.pc-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+.pc-stat { background: #fff; padding: 10px 14px; }
+.pc-stat-label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text3); margin-bottom: 3px; }
+.pc-stat-val { font-size: 22px; font-weight: 800; color: var(--navy); letter-spacing: -0.5px; }
+.pc-admin-label { font-size: 11px; color: var(--text3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+.pc-admin-val { font-size: 12.5px; color: var(--text2); }
+.pc-footer {
+  border-top: 1px solid var(--border);
+  padding: 13px 20px;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 13.5px; font-weight: 700; color: var(--blue);
+  cursor: pointer; transition: background 0.15s;
+}
+.pc-footer:hover { background: #f0f5ff; }
+.pc-footer svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+.plants-no-results { display: none; text-align: center; padding: 60px 0; }
+.plants-no-results svg { width: 48px; height: 48px; stroke: var(--text3); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; margin: 0 auto 16px; display: block; }
+.plants-no-results-title { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.plants-no-results-sub { font-size: 13px; color: var(--text2); }
+</style>
+
+<div class="screen" id="s-plants">
+  <!-- Top bar: logo + right controls, NO sidebar -->
+  <div class="plants-topbar">
+    <div class="plants-topbar-logo">
+      <div class="plants-topbar-icon">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.8"/><path d="M10 6.5C8.067 6.5 6.5 8.067 6.5 10S8.067 13.5 10 13.5c1.38 0 2.576-.79 3.17-1.95" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M13.5 9.5l-.3-1.8-1.7 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="plants-topbar-name">VAULLER</div>
+        <div class="plants-topbar-sub">Dispatch AI</div>
+      </div>
+    </div>
+    <div class="plants-topbar-right">
+      <button class="notif-btn" onclick="toggleNotif()">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-badge"></span>
+      </button>
+      <div class="topbar-time" id="plants-clock">07:32:34 PM</div>
+      <button class="topbar-signout-btn" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="plants-screen-body">
+    <!-- Title row with search -->
+    <div class="plants-title-row">
+      <div class="plants-title-row-inner">
+        <div>
+          <div class="plants-h1">Your Plants</div>
+          <div class="plants-h1-sub" id="sp-managing-label">Managing 2 plants</div>
+        </div>
+        <button class="btn-add-blue" onclick="openAddPlantModal()">+ Add Plant</button>
+      </div>
+      <!-- Search bar -->
+      <div class="plants-search-wrap">
+        <svg class="plants-search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input
+          class="plants-search-input"
+          id="sp-search"
+          type="text"
+          placeholder="Search plants by name or location..."
+          oninput="filterStandalonePlants(this.value)"
+        >
+      </div>
+    </div>
+
+    <!-- Cards area -->
+    <div class="plants-cards-area">
+      <div class="plants-cards-grid" id="sp-grid"></div>
+      <div class="plants-no-results" id="sp-no-results">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <div class="plants-no-results-title">No plants found</div>
+        <div class="plants-no-results-sub">Try a different name or location</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     APP SHELL  (sidebar shell – shown after clicking View Details)
+════════════════════════════════════════ -->
+<div class="screen" id="s-app" style="flex-direction:column;">
+
+  <!-- Topbar (no orders count on empty state, shown when plants exist) -->
+  <div class="app-topbar">
+    <div class="app-logo">
+      <div class="app-logo-icon">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.8"/><path d="M10 6.5C8.067 6.5 6.5 8.067 6.5 10S8.067 13.5 10 13.5c1.38 0 2.576-.79 3.17-1.95" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M13.5 9.5l-.3-1.8-1.7 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="app-logo-name">VAULLER</div>
+        <div class="app-logo-sub">Dispatch AI</div>
+      </div>
+    </div>
+    <!-- Breadcrumb: Your Plants > Plant Name -->
+    <div style="display:flex;align-items:center;gap:8px;margin-left:20px;">
+      <button onclick="goBackToPlants()" style="background:none;border:none;font-family:var(--font);font-size:12.5px;color:rgba(255,255,255,0.45);cursor:pointer;padding:0;">Your Plants</button>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      <span id="topbar-plant-name" style="font-size:12.5px;font-weight:600;color:rgba(255,255,255,0.8);">Riverside Ready Mix</span>
+    </div>
+    <div class="app-topbar-right">
+      <div class="topbar-orders-wrap" id="topbar-orders" style="display:none;">
+        <div class="topbar-orders-num">12</div>
+        <div class="topbar-orders-label">Orders</div>
+      </div>
+      <button class="notif-btn" onclick="toggleNotif()">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-badge" id="notif-badge-dot"></span>
+      </button>
+      <div class="topbar-time" id="clock">07:32:34 PM</div>
+      <button class="topbar-signout-btn" onclick="signOut()">Sign Out</button>
+    </div>
+
+    <!-- Notif Panel -->
+    <div class="notif-panel" id="notif-panel">
+      <div class="notif-head">
+        <div class="notif-head-title">Notifications</div>
+        <div class="notif-head-right">
+          <button class="mark-read" onclick="markAllRead()">Mark all read</button>
+          <span class="notif-new-badge" id="notif-count">2 new</span>
+        </div>
+      </div>
+      <div class="notif-item"><div class="notif-icon-c" style="background:#dcfce7;"><svg viewBox="0 0 24 24" style="stroke:#15803d"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div style="flex:1;"><div class="notif-item-title">New Order Received</div><div class="notif-item-desc">ORD-2847 from Hartman Construction – 8 CY, 3000 PSI</div><div class="notif-item-time">2 minutes ago</div></div><div class="notif-dot-blue"></div></div>
+      <div class="notif-item"><div class="notif-icon-c" style="background:#dcfce7;"><svg viewBox="0 0 24 24" style="stroke:#15803d"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div style="flex:1;"><div class="notif-item-title">Order Delivered</div><div class="notif-item-desc">ORD-2846 successfully delivered to Riverside Builders</div><div class="notif-item-time">15 minutes ago</div></div><div class="notif-dot-blue"></div></div>
+      <div class="notif-item"><div class="notif-icon-c" style="background:#eff6ff;"><svg viewBox="0 0 24 24" style="stroke:var(--blue)"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div><div style="flex:1;"><div class="notif-item-title">Call Completed</div><div class="notif-item-desc">AI agent handled call from Metro Foundations</div><div class="notif-item-time">1 hour ago</div></div></div>
+      <div class="notif-item"><div class="notif-icon-c" style="background:#f5f3ff;"><svg viewBox="0 0 24 24" style="stroke:#7c3aed"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg></div><div style="flex:1;"><div class="notif-item-title">System Update</div><div class="notif-item-desc">Command Alkon sync completed successfully</div><div class="notif-item-time">2 hours ago</div></div></div>
+      <div class="notif-footer-link">View all notifications →</div>
+    </div>
+  </div>
+
+  <div class="app-body" id="app-body">
+
+    <!-- ── EMPTY STATE (no plants) ── -->
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
+      <div class="empty-title">No Plants Added</div>
+      <div class="empty-sub">Get started by adding your first concrete plant</div>
+      <button class="btn-add-first" onclick="openAddPlantModal()">+ Add Your First Plant</button>
+    </div>
+
+    <!-- ── APP WITH SIDEBAR (shown when plants exist) ── -->
+    <div id="app-with-sidebar" style="display:none;flex:1;overflow:hidden;">
+      <aside class="sidebar">
+        <!-- Back to Plants (standalone) -->
+        <button class="nav-item" id="nav-plants" onclick="goBackToPlants()" style="border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:6px;padding-bottom:14px;">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          Your Plants
+        </button>
+        <button class="nav-item active" id="nav-dashboard" onclick="setNav('dashboard')">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </button>
+        <button class="nav-item" id="nav-calllog" onclick="setNav('calllog')">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Call Log
+        </button>
+        <button class="nav-item" id="nav-orders" onclick="setNav('orders')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Order History
+        </button>
+        <button class="nav-item" id="nav-settings" onclick="setNav('settings')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          Settings
+        </button>
+        <div class="sidebar-bottom">
+          <div class="sidebar-user">
+            <div class="sidebar-avatar">MR</div>
+            <div>
+              <div class="sidebar-user-name">Mike Reynolds</div>
+              <div class="sidebar-user-email">mike@vauller.com</div>
+            </div>
+          </div>
+          <button class="sidebar-signout" onclick="signOut()">
+            <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign Out
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-content" id="main-content">
+
+        <!-- PLANTS PAGE — full width, no sidebar -->
+        <div id="page-plants" style="display:none;flex-direction:column;height:100%;overflow:hidden;">
+          <!-- Plants-specific topbar row (search + add) -->
+          <div style="background:#fff;border-bottom:1px solid var(--border);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div>
+              <div style="font-size:22px;font-weight:800;color:var(--navy);font-family:var(--poppins);letter-spacing:-0.4px;">Your Plants</div>
+              <div style="font-size:13px;color:var(--text2);margin-top:3px;" id="plants-managing-label">Managing 2 plants</div>
+            </div>
+            <button class="btn-add-blue" onclick="openAddPlantModal()">+ Add Plant</button>
+          </div>
+          <!-- Search bar -->
+          <div style="padding:20px 36px 0;background:var(--bg);">
+            <div style="position:relative;max-width:420px;">
+              <svg style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--text3);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input id="plant-search" type="text" placeholder="Search plants by name..." oninput="filterPlants(this.value)"
+                style="width:100%;border:1.5px solid var(--border2);border-radius:99px;padding:10px 16px 10px 40px;font-family:var(--font);font-size:13.5px;color:var(--text);outline:none;background:#fff;">
+            </div>
+          </div>
+          <!-- Plants grid -->
+          <div style="padding:18px 36px 36px;background:var(--bg);flex:1;overflow-y:auto;">
+            <div class="plants-grid" id="plants-grid"></div>
+            <div id="plants-no-results" style="display:none;text-align:center;padding:48px 0;color:var(--text3);font-size:14px;">
+              No plants match your search.
+            </div>
+          </div>
+        </div>
+
+        <!-- DASHBOARD PAGE -->
+        <div id="page-dashboard" style="display:none;">
+          <div class="page-header-bar" style="justify-content:flex-start;">
+            <div>
+              <div class="page-title-bar">Dashboard</div>
+              <div class="page-sub-small">Plant Performance Overview</div>
+            </div>
+            <div class="plant-pill">
+              <div class="plant-pill-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+              Riverside Ready Mix
+            </div>
+          </div>
+          <div class="dashboard-content">
+            <div class="stat-cards-grid">
+              <div class="stat-card">
+                <div class="stat-card-label"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>Orders Today</div>
+                <div class="stat-card-value">10</div>
+                <div class="stat-card-sub green">+3 vs yesterday</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-label"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>Successful Calls</div>
+                <div class="stat-card-value">52</div>
+                <div class="stat-card-sub">96.2% success rate</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-card-label"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Avg Call Duration</div>
+                <div class="stat-card-value">4:42</div>
+                <div class="stat-card-sub">Under target</div>
+              </div>
+              <div class="agent-card">
+                <div class="agent-top">
+                  <div class="agent-avatar"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
+                  <div><div class="agent-name">Dispatch AI Agent</div><div class="agent-type">AI Voice Assistant</div></div>
+                  <div class="agent-live"><div class="agent-live-dot"></div>LIVE</div>
+                </div>
+                <div class="agent-phone-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg><span class="agent-phone-label" style="margin-left:4px;">Phone Number</span></div>
+                <div class="agent-phone-val">+1 (507) 882-4410</div>
+                <div class="agent-handling-row"><span>Handling Calls</span><span class="agent-handling-val">24/7</span></div>
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <div class="chart-card-title"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Weekly Order Volume</div>
+                <button class="chart-period-btn">LAST 7 DAYS</button>
+              </div>
+              <div class="chart-bars">
+                <div class="bar-col"><div class="bar-fill" style="height:120px;"></div><div class="bar-lbl">MON</div></div>
+                <div class="bar-col"><div class="bar-fill" style="height:100px;"></div><div class="bar-lbl">TUE</div></div>
+                <div class="bar-col"><div class="bar-fill" style="height:130px;"></div><div class="bar-lbl">WED</div></div>
+                <div class="bar-col"><div class="bar-fill" style="height:90px;"></div><div class="bar-lbl">THU</div></div>
+                <div class="bar-col"><div class="bar-fill" style="height:115px;"></div><div class="bar-lbl">FRI</div></div>
+                <div class="bar-col"><div class="bar-fill" style="height:80px;"></div><div class="bar-lbl">SAT</div></div>
+                <div class="bar-col"><div class="bar-fill" style="height:125px;"></div><div class="bar-lbl">SUN</div></div>
+              </div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Recent Activity</div>
+              <div class="act-row"><div class="act-dot" style="background:var(--green);"></div><div class="act-text"><div class="act-title-text">Order ORD-2847 delivered</div><div class="act-sub-text">Hartman Construction</div></div><div class="act-time-text">2 min ago</div></div>
+              <div class="act-row"><div class="act-dot" style="background:var(--blue);"></div><div class="act-text"><div class="act-title-text">Call completed – Metro Foundations</div><div class="act-sub-text">AI handled order for 12 CY 4000 PSI</div></div><div class="act-time-text">8 min ago</div></div>
+              <div class="act-row"><div class="act-dot" style="background:var(--green);"></div><div class="act-text"><div class="act-title-text">Order ORD-2846 delivered</div><div class="act-sub-text">Riverside Builders</div></div><div class="act-time-text">15 min ago</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CALL LOG PAGE -->
+        <div id="page-calllog" style="display:none;">
+          <div class="page-header-bar" style="justify-content:flex-start;">
+            <div><div class="page-title-bar">Call Log</div><div class="page-sub-small">Full Call History</div></div>
+            <div class="plant-pill"><div class="plant-pill-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>Riverside Ready Mix</div>
+          </div>
+          <div class="cl-header">
+            <div class="cl-title"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Call Log</div>
+            <div style="display:flex;gap:10px;align-items:center;"><div class="search-pill"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input placeholder="Search calls..."></div><div class="count-badge">3 CALLS</div></div>
+          </div>
+          <div class="call-row">
+            <div class="call-row-hd" onclick="toggleExpand('cd1',this)">
+              <div><div class="call-id">CALL-8472</div><div class="call-co">Hartman Construction</div></div>
+              <div class="call-meta"><span class="call-tm">10:24 AM</span><span class="call-tm">02:34</span><span class="call-tm">ORD-2847</span><span class="badge-done">COMPLETED</span><button class="expand-btn"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button></div>
+            </div>
+            <div class="call-detail open" id="cd1">
+              <div>
+                <div class="detail-box" style="margin-bottom:12px;"><div class="detail-box-title"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>SUMMARY</div><div class="summary-txt">Successfully processed order for foundation pour. Customer confirmed delivery address and specifications.</div></div>
+                <div class="detail-box"><div class="detail-box-title"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2"/></svg>AUDIO RECORDING</div><div class="audio-wrap"><button class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></button><div class="audio-bar"><div class="audio-progress"></div></div><span class="audio-dur">02:34</span></div></div>
+              </div>
+              <div class="transcript-scroll">
+                <div class="detail-box-title" style="margin-bottom:10px;"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>CALL TRANSCRIPT</div>
+                <div class="t-bub"><div class="t-lbl ai">AI AGENT • 10:22 AM</div><div class="t-msg ai">Good morning! Vauller Concrete Dispatch. How can I help you today?</div></div>
+                <div class="t-bub caller-side clearfix"><div class="t-lbl caller">CALLER • 10:22 AM</div><div class="t-msg caller">Hi, I need 8 yards of 3000 PSI for a foundation pour.</div></div>
+                <div class="t-bub"><div class="t-lbl ai">AI AGENT • 10:23 AM</div><div class="t-msg ai">Perfect! Let me get that order set up for you. Can you confirm the delivery address?</div></div>
+                <div class="t-bub caller-side clearfix"><div class="t-lbl caller">CALLER • 10:23 AM</div><div class="t-msg caller">Yes, 1234 Oak Street, Riverside.</div></div>
+                <div class="t-bub"><div class="t-lbl ai">AI AGENT • 10:24 AM</div><div class="t-msg ai">Great! Your order is confirmed. We'll have that out to you shortly.</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="call-row"><div class="call-row-hd" onclick="toggleExpand('cd2',this)"><div><div class="call-id">CALL-8471</div><div class="call-co">Riverside Builders</div></div><div class="call-meta"><span class="call-tm">09:45 AM</span><span class="call-tm">03:12</span><span class="call-tm">ORD-2848</span><span class="badge-done">COMPLETED</span><button class="expand-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button></div></div><div class="call-detail" id="cd2" style="padding:0 24px 14px;background:#fff;"><div style="font-size:13px;color:var(--text2);padding:12px 0;">No additional details available.</div></div></div>
+          <div class="call-row"><div class="call-row-hd" onclick="toggleExpand('cd3',this)"><div><div class="call-id">CALL-8470</div><div class="call-co">Metro Foundations</div></div><div class="call-meta"><span class="call-tm">08:30 AM</span><span class="call-tm">01:58</span><span class="call-tm">ORD-2849</span><span class="badge-done">COMPLETED</span><button class="expand-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button></div></div><div class="call-detail" id="cd3" style="padding:0 24px 14px;background:#fff;"><div style="font-size:13px;color:var(--text2);padding:12px 0;">No additional details available.</div></div></div>
+        </div>
+
+        <!-- ORDER HISTORY PAGE -->
+        <div id="page-orders" style="display:none;">
+          <div class="page-header-bar" style="justify-content:flex-start;">
+            <div><div class="page-title-bar">Order History</div><div class="page-sub-small">All Records</div></div>
+            <div class="plant-pill"><div class="plant-pill-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>Riverside Ready Mix</div>
+          </div>
+          <div class="ord-header">
+            <div class="ord-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Order History</div>
+            <div style="display:flex;gap:10px;align-items:center;"><div class="search-pill"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input placeholder="Search orders..."></div><div class="count-badge">5 RECORDS</div></div>
+          </div>
+          <div class="ord-row">
+            <div class="ord-row-hd" onclick="toggleExpand('od1',this)">
+              <div><div class="ord-id">ORD-2847</div><div class="ord-co">Hartman Construction</div></div>
+              <div class="ord-meta"><span class="ord-spec">3000 PSI</span><span class="ord-spec">8 CY</span><span class="ord-spec">Today, 07:30 AM</span><span class="badge-delivered">DELIVERED</span><button class="expand-btn"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></button></div>
+            </div>
+            <div class="ord-detail open" id="od1">
+              <div class="ord-col">
+                <div class="ord-info-box"><div class="ord-box-title"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>CUSTOMER DETAILS</div><div class="ord-field"><div class="ord-field-label">NAME</div><div class="ord-field-val">Hartman Construction</div></div><div class="ord-field"><div class="ord-field-label">PHONE</div><div class="ord-field-val">(612) 555-0147</div></div><div class="ord-field"><div class="ord-field-label">ADDRESS</div><div class="ord-field-val">1234 Oak Street, Riverside, MN 55432</div></div></div>
+                <div class="ord-info-box"><div class="ord-box-title"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>ORDER DETAILS</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div><div class="ord-field-label">ORDER ID</div><div class="ord-field-val">ORD-2847</div></div><div><div class="ord-field-label">DATE/TIME</div><div class="ord-field-val">Today, 07:30 AM</div></div><div><div class="ord-field-label">PSI</div><div class="ord-field-val">3000</div></div><div><div class="ord-field-label">VOLUME</div><div class="ord-field-val">8 CY</div></div></div><div style="margin-top:10px;"><div class="ord-field-label">STATUS</div><span class="status-delivered-badge">DELIVERED</span></div></div>
+                <div class="ord-info-box"><div class="ord-box-title"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>SUMMARY</div><div class="ord-summary-txt">Foundation pour completed successfully. Customer satisfied with delivery time.</div></div>
+              </div>
+              <div class="transcript-scroll" style="height:auto;min-height:260px;">
+                <div class="detail-box-title" style="margin-bottom:10px;"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>CALL TRANSCRIPT</div>
+                <div class="t-bub"><div class="t-lbl ai">AI AGENT • 10:22 AM</div><div class="t-msg ai">Good morning! Vauller Concrete Dispatch. How can I help you today?</div></div>
+                <div class="t-bub caller-side clearfix"><div class="t-lbl caller">CALLER • 10:22 AM</div><div class="t-msg caller">Hi, I need 8 yards of 3000 PSI for a foundation pour.</div></div>
+                <div class="t-bub"><div class="t-lbl ai">AI AGENT • 10:23 AM</div><div class="t-msg ai">Perfect! Let me get that order set up for you. Can you confirm the delivery address?</div></div>
+                <div class="t-bub caller-side clearfix"><div class="t-lbl caller">CALLER • 10:23 AM</div><div class="t-msg caller">Yes, 1234 Oak Street, Riverside.</div></div>
+                <div class="t-bub"><div class="t-lbl ai">AI AGENT • 10:24 AM</div><div class="t-msg ai">Great! Your order is confirmed. We'll have that out to you shortly.</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="ord-row"><div class="ord-row-hd" onclick="toggleExpand('od2',this)"><div><div class="ord-id">ORD-2846</div><div class="ord-co">Riverside Builders</div></div><div class="ord-meta"><span class="ord-spec">4000 PSI</span><span class="ord-spec">12 CY</span><span class="ord-spec">Today, 06:00 AM</span><span class="badge-delivered">DELIVERED</span><button class="expand-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button></div></div><div class="ord-detail" id="od2" style="padding:0 24px 14px;background:#fff;"><div style="font-size:13px;color:var(--text2);padding:12px 0;">No additional details available.</div></div></div>
+        </div>
+
+        <!-- SETTINGS PAGE -->
+        <div id="page-settings" style="display:none;">
+          <div class="page-header-bar" style="justify-content:flex-start;">
+            <div><div class="page-title-bar">Settings</div><div class="page-sub-small">Configuration</div></div>
+            <div class="plant-pill"><div class="plant-pill-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>Riverside Ready Mix</div>
+          </div>
+          <div class="settings-content">
+            <div class="stabs-row">
+              <button class="stab active" onclick="setStab(this,'sp-profile')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>User Profile</button>
+              <button class="stab" onclick="setStab(this,'sp-display')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</button>
+              <button class="stab" onclick="setStab(this,'sp-plant')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Plant Configuration</button>
+              <button class="stab" onclick="setStab(this,'sp-alkon')"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>Command Alkon Integration</button>
+              <button class="stab" onclick="setStab(this,'sp-ai')"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>AI Agent Configuration</button>
+            </div>
+            <!-- User Profile -->
+            <div class="stab-panel active" id="sp-profile">
+              <div class="stab-card"><div class="stab-card-title"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Personal Information</div><div class="avatar-section"><div class="big-avatar">MR</div><div><div class="change-photo-link">Change Photo</div><div class="change-photo-hint">JPG, PNG or GIF. Max 2MB.</div></div></div><div class="field-grid"><div class="field-item" style="grid-column:1/-1;"><label>Full Name</label><input type="text" class="field-input" value="Mike Reynolds"></div><div class="field-item"><label>Email Address</label><input type="email" class="field-input" value="mike@vauller.com"></div><div class="field-item"><label>Phone Number</label><input type="tel" class="field-input" value="+1 (507) 882-4410"></div></div></div>
+              <div class="stab-footer"><button class="btn-cancel-out">Cancel</button><button class="btn-save-all"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Save All Changes</button></div>
+            </div>
+            <!-- Display -->
+            <div class="stab-panel" id="sp-display">
+              <div class="stab-card"><div class="stab-card-title"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Display Preferences</div><div class="field-grid"><div class="field-item"><label>Theme</label><select class="field-select"><option>Light</option><option>Dark</option></select></div><div class="field-item"><label>Time Format</label><select class="field-select"><option>12-hour</option><option>24-hour</option></select></div><div class="field-item"><label>Date Format</label><select class="field-select"><option>MM/DD/YYYY</option><option>DD/MM/YYYY</option></select></div></div></div>
+              <div class="stab-footer"><button class="btn-cancel-out">Cancel</button><button class="btn-save-all"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Save All Changes</button></div>
+            </div>
+            <!-- Plant Config -->
+            <div class="stab-panel" id="sp-plant">
+              <div class="stab-card"><div class="stab-card-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg>Plant Information</div><div class="field-grid"><div class="field-item"><label>Plant Name</label><input type="text" class="field-input" value="Riverside Ready Mix"></div><div class="field-item"><label>Location</label><input type="text" class="field-input" value="Riverside, MN"></div><div class="field-item"><label>Address</label><input type="text" class="field-input" value="4820 Mill Creek Road"></div><div class="field-item"><label>Phone Number</label><input type="tel" class="field-input" value="+1 (507) 882-4410"></div></div></div>
+              <div class="stab-footer"><button class="btn-cancel-out">Cancel</button><button class="btn-save-all"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Save All Changes</button></div>
+            </div>
+            <!-- Alkon -->
+            <div class="stab-panel" id="sp-alkon">
+              <div class="stab-card" style="max-width:640px;"><div class="stab-card-title"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>Command Alkon Integration</div><div class="field-grid"><div class="field-item"><label>API Endpoint</label><input type="text" class="field-input" value="https://api.commandalkon.com/v2"></div><div class="field-item"><label>API Key</label><input type="password" class="field-input" value="sk_live_xxxxxxxxxxxxxxxxxxx"></div><div class="field-item"><label>Username</label><input type="text" class="field-input" value="admin"></div><div class="field-item"><label>Password</label><input type="password" class="field-input" value="password123"></div><div class="field-item"><label>IP Address</label><input type="text" class="field-input" value="192.168.1.100"></div><div class="field-item"><label>Port</label><input type="text" class="field-input" value="8080"></div></div></div>
+              <div class="stab-footer"><button class="btn-cancel-out">Cancel</button><button class="btn-save-all"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Save All Changes</button></div>
+            </div>
+            <!-- AI Agent -->
+            <div class="stab-panel" id="sp-ai">
+              <div class="stab-card" style="max-width:640px;"><div class="stab-card-title"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>AI Agent Configuration</div><div class="stab-card-desc">Configure your AI assistant settings and Twilio integration for this plant.</div><div class="field-grid" style="grid-template-columns:1fr;"><div class="field-item"><label>Agent Name</label><input type="text" class="field-input" placeholder="e.g., Riverside Dispatch Agent"></div></div><div class="field-grid" style="margin-top:14px;"><div class="field-item" style="position:relative;"><label>Twilio Account SID</label><input type="password" class="field-input" placeholder="Enter Twilio SID"></div><div class="field-item" style="position:relative;"><label>Twilio Auth Token</label><input type="password" class="field-input" placeholder="Enter auth token"></div><div class="field-item"><label>Twilio Phone Number</label><input type="tel" class="field-input" placeholder="+1 (555) 123-4567"></div></div></div>
+              <div class="stab-footer"><button class="btn-cancel-out">Cancel</button><button class="btn-save-all"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Save All Changes</button></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /main-content -->
+    </div><!-- /app-with-sidebar -->
+
+  </div><!-- /app-body -->
+</div><!-- /s-app -->
+
+<!-- ════════════════════════════════════════
+     ADD PLANT MODAL
+════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-add-plant">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Add New Plant</div>
+        <div class="modal-sub-text">Add a new concrete plant to your organization</div>
+      </div>
+      <button class="modal-close-btn" onclick="closeAddPlantModal()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <label class="modal-label">Plant Name</label>
+    <input type="text" class="modal-input" placeholder="e.g., Riverside Ready Mix" id="modal-plant-name">
+    <label class="modal-label">Location/Details</label>
+    <input type="text" class="modal-input" placeholder="e.g., Riverside, MN" id="modal-plant-loc">
+    <label class="modal-label">Plant Admin Email</label>
+    <input type="email" class="modal-input" placeholder="admin@example.com" id="modal-plant-email" style="margin-bottom:4px;">
+    <div class="modal-hint-text">An invitation will be sent to this email</div>
+    <div class="modal-footer-btns">
+      <button class="btn-modal-cancel" onclick="closeAddPlantModal()">Cancel</button>
+      <button class="btn-modal-add" onclick="submitAddPlant()">Add Plant</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════
+// STATE
+// ════════════════════════════════
+var plants = [];
+var onboardingCount = 0;
+
+// ════════════════════════════════
+// SCREEN NAVIGATION
+// ════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+}
+
+// ════════════════════════════════
+// SIGN IN  →  owner always lands on Plants page with sidebar
+// ════════════════════════════════
+function handleSignIn() {
+  // Pre-load demo plants for the owner so they always see the Plants page
+  if (plants.length === 0) {
+    plants = [
+      { name: 'Riverside Ready Mix', loc: 'Riverside, MN',    email: 'mike@vauller.com',    orders: 10, calls: 52 },
+      { name: 'Metro Concrete Co.',  loc: 'Minneapolis, MN',  email: 'admin@metrocc.com',   orders: 14, calls: 38 },
+    ];
+  }
+  showScreen('s-app');
+  renderAppBody();
+}
+
+function signOut() {
+  plants = [];
+  onboardingCount = 0;
+  showScreen('s-login');
+}
+
+// ════════════════════════════════
+// APP BODY  –  plants page = standalone, no sidebar
+// ════════════════════════════════
+function renderAppBody() {
+  if (plants.length === 0) {
+    // Show empty state inside s-app (no sidebar)
+    var emptyEl   = document.getElementById('empty-state');
+    var sidebarEl = document.getElementById('app-with-sidebar');
+    var ordersEl  = document.getElementById('topbar-orders');
+    emptyEl.style.display   = 'flex';
+    sidebarEl.style.display = 'none';
+    ordersEl.style.display  = 'none';
+  } else {
+    // Go to standalone plants screen (no sidebar)
+    buildPlantsGrid();
+    showScreen('s-plants');
+  }
+}
+
+// ════════════════════════════════
+// ONBOARDING  –  dynamic plant blocks
+// ════════════════════════════════
+function initOnboarding() {
+  onboardingCount = 0;
+  document.getElementById('plant-blocks-container').innerHTML = '';
+  addPlantBlock();
+}
+
+function addPlantBlock() {
+  onboardingCount++;
+  var n   = onboardingCount;
+  var bid = 'pb' + n;
+  var div = document.createElement('div');
+  div.className = 'plant-block';
+  div.id = bid;
+  div.innerHTML =
+    '<div class="plant-block-header">' +
+      '<div class="plant-block-title">Plant ' + n + '</div>' +
+      (n > 1 ? '<button class="remove-plant" onclick="removePlantBlock(\'' + bid + '\')" title="Remove">&#215;</button>' : '') +
+    '</div>' +
+    '<input type="text"  class="input-std" placeholder="Plant Name"          data-f="name">' +
+    '<input type="text"  class="input-std" placeholder="e.g., Riverside, MN" data-f="loc">' +
+    '<input type="email" class="input-std" placeholder="admin@example.com"    data-f="email">';
+  document.getElementById('plant-blocks-container').appendChild(div);
+}
+
+function removePlantBlock(bid) {
+  var el = document.getElementById(bid);
+  if (el) el.remove();
+  // renumber titles
+  document.querySelectorAll('.plant-block').forEach(function(b, i){
+    b.querySelector('.plant-block-title').textContent = 'Plant ' + (i + 1);
+  });
+}
+
+function goToDashboard() {
+  // collect filled blocks
+  document.querySelectorAll('.plant-block').forEach(function(b){
+    var name  = b.querySelector('[data-f="name"]').value.trim();
+    var loc   = b.querySelector('[data-f="loc"]').value.trim();
+    var email = b.querySelector('[data-f="email"]').value.trim();
+    if (name) {
+      plants.push({ name: name, loc: loc || 'Unknown', email: email || 'admin@example.com', orders: 0, calls: 0 });
+    }
+  });
+  // fallback
+  if (plants.length === 0) {
+    plants.push({ name: 'Riverside Ready Mix', loc: 'Riverside, MN', email: 'mike@vauller.com', orders: 10, calls: 52 });
+  }
+  showScreen('s-app');
+  renderAppBody();
+}
+
+// ════════════════════════════════
+// STANDALONE PLANTS SCREEN
+// ════════════════════════════════
+function buildPlantsGrid() {
+  buildStandalonePlantsGrid();
+}
+
+function buildStandalonePlantsGrid() {
+  var grid  = document.getElementById('sp-grid');
+  var label = document.getElementById('sp-managing-label');
+  if (!grid) return;
+  if (label) label.textContent = 'Managing ' + plants.length + ' plant' + (plants.length !== 1 ? 's' : '');
+  grid.innerHTML = '';
+  plants.forEach(function(p, i) {
+    var card = document.createElement('div');
+    card.className = 'plant-card-standalone';
+    card.setAttribute('data-name', p.name.toLowerCase());
+    card.setAttribute('data-loc',  p.loc.toLowerCase());
+    card.innerHTML =
+      '<div class="pc-body">' +
+        '<div class="pc-top">' +
+          '<div class="pc-icon">' +
+            '<svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>' +
+          '</div>' +
+          '<div>' +
+            '<div class="pc-name">' + esc(p.name) + '</div>' +
+            '<div class="pc-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' + esc(p.loc) + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="pc-stats">' +
+          '<div class="pc-stat"><div class="pc-stat-label">Orders</div><div class="pc-stat-val">' + p.orders + '</div></div>' +
+          '<div class="pc-stat"><div class="pc-stat-label">Calls</div><div class="pc-stat-val">'  + p.calls  + '</div></div>' +
+        '</div>' +
+        '<div class="pc-admin-label">Admin</div>' +
+        '<div class="pc-admin-val">' + esc(p.email) + '</div>' +
+      '</div>' +
+      '<div class="pc-footer" onclick="openPlantDetail(' + i + ')">' +
+        'View Details' +
+        '<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+}
+
+function filterStandalonePlants(query) {
+  var q = query.toLowerCase().trim();
+  var cards = document.querySelectorAll('#sp-grid .plant-card-standalone');
+  var visible = 0;
+  cards.forEach(function(card) {
+    var name = card.getAttribute('data-name') || '';
+    var loc  = card.getAttribute('data-loc')  || '';
+    var match = !q || name.indexOf(q) !== -1 || loc.indexOf(q) !== -1;
+    card.style.display = match ? '' : 'none';
+    if (match) visible++;
+  });
+  var noRes = document.getElementById('sp-no-results');
+  if (noRes) noRes.style.display = visible === 0 ? 'block' : 'none';
+}
+
+// Plants screen clock
+setInterval(function(){
+  var el = document.getElementById('plants-clock');
+  if (el) {
+    var now = new Date();
+    var h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+    var ampm = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+    el.textContent = pad(h)+':'+pad(m)+':'+pad(s)+' '+ampm;
+  }
+}, 1000);
+  var grid  = document.getElementById('plants-grid');
+  var label = document.getElementById('plants-managing-label');
+  label.textContent = 'Managing ' + plants.length + ' plant' + (plants.length !== 1 ? 's' : '');
+  grid.innerHTML = '';
+  plants.forEach(function(p, i){
+    var card = document.createElement('div');
+    card.className = 'plant-card' + (i === 0 ? ' selected' : '');
+    card.innerHTML =
+      '<div class="plant-card-body">' +
+        '<div class="plant-card-top">' +
+          '<div class="plant-card-icon">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
+              '<rect x="1" y="3" width="15" height="13"/>' +
+              '<polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>' +
+              '<circle cx="5.5" cy="18.5" r="2.5"/>' +
+              '<circle cx="18.5" cy="18.5" r="2.5"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div>' +
+            '<div class="plant-card-name">' + esc(p.name) + '</div>' +
+            '<div class="plant-card-loc">'  + esc(p.loc)  + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="plant-stats-grid">' +
+          '<div class="plant-stat"><div class="plant-stat-label">Orders</div><div class="plant-stat-val">' + p.orders + '</div></div>' +
+          '<div class="plant-stat"><div class="plant-stat-label">Calls</div><div class="plant-stat-val">'  + p.calls  + '</div></div>' +
+        '</div>' +
+        '<div class="plant-admin-label">Admin</div>' +
+        '<div class="plant-admin-val">' + esc(p.email) + '</div>' +
+        (i === 0 ?
+          '<div class="plant-selected-row">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+              '<path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>' +
+              '<polyline points="22 4 12 14.01 9 11.01"/>' +
+            '</svg>Selected' +
+          '</div>' : '') +
+      '</div>' +
+      '<div class="plant-card-footer" onclick="openPlantDetail(' + i + ')">' +
+        'View Details ' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          '<polyline points="9 18 15 12 9 6"/>' +
+        '</svg>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+}
+
+// ── Plant search / filter ─────────────────
+function filterPlants(query) {
+  var q = query.toLowerCase().trim();
+  var cards = document.querySelectorAll('#plants-grid .plant-card');
+  var visibleCount = 0;
+  cards.forEach(function(card) {
+    var name = (card.querySelector('.plant-card-name') || card.querySelector('[class*="plant-card-name"]'));
+    var nameText = name ? name.textContent.toLowerCase() : '';
+    var loc = card.querySelector('.plant-card-loc');
+    var locText = loc ? loc.textContent.toLowerCase() : '';
+    var match = !q || nameText.indexOf(q) !== -1 || locText.indexOf(q) !== -1;
+    card.style.display = match ? '' : 'none';
+    if (match) visibleCount++;
+  });
+  var noResults = document.getElementById('plants-no-results');
+  if (noResults) noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+}
+
+
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ════════════════════════════════
+// MODAL  –  Add New Plant
+// ════════════════════════════════
+function openAddPlantModal() {
+  document.getElementById('modal-plant-name').value  = '';
+  document.getElementById('modal-plant-loc').value   = '';
+  document.getElementById('modal-plant-email').value = '';
+  document.getElementById('modal-add-plant').classList.add('open');
+}
+
+function closeAddPlantModal() {
+  document.getElementById('modal-add-plant').classList.remove('open');
+}
+
+function submitAddPlant() {
+  var name  = document.getElementById('modal-plant-name').value.trim();
+  var loc   = document.getElementById('modal-plant-loc').value.trim();
+  var email = document.getElementById('modal-plant-email').value.trim();
+  plants.push({
+    name:   name  || 'New Plant',
+    loc:    loc   || 'Unknown',
+    email:  email || 'admin@example.com',
+    orders: 0,
+    calls:  0
+  });
+  closeAddPlantModal();
+  renderAppBody();   // ← re-renders grid AND switches to sidebar view
+}
+
+// ════════════════════════════════
+// SIDEBAR NAV  –  hide sidebar on Plants, show on others
+// ════════════════════════════════
+function setNav(page) {
+  // Update active nav item (skip 'plants' since that's now a back button)
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  var navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
+
+  // Hide all sidebar content pages (plants no longer lives here)
+  ['dashboard','calllog','orders','settings'].forEach(function(p){
+    var el = document.getElementById('page-' + p);
+    if (el) el.style.display = 'none';
+  });
+  var target = document.getElementById('page-' + page);
+  if (target) target.style.display = 'block';
+}
+
+// ════════════════════════════════
+// FORGOT PASSWORD
+// ════════════════════════════════
+// Handled by showScreen() calls in HTML onclick attributes
+
+// ════════════════════════════════
+// PASSWORD TOGGLE
+// ════════════════════════════════
+function togglePass() {
+  var inp = document.getElementById('login-pass');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+// ════════════════════════════════
+// NOTIFICATIONS
+// ════════════════════════════════
+function toggleNotif() {
+  document.getElementById('notif-panel').classList.toggle('open');
+}
+
+function markAllRead() {
+  var dot = document.getElementById('notif-badge-dot');
+  var cnt = document.getElementById('notif-count');
+  if (dot) dot.style.display = 'none';
+  if (cnt) cnt.style.display = 'none';
+  document.querySelectorAll('.notif-dot-blue').forEach(function(d){ d.style.display = 'none'; });
+}
+
+document.addEventListener('click', function(e) {
+  var panel = document.getElementById('notif-panel');
+  if (panel && panel.classList.contains('open')) {
+    if (!panel.contains(e.target) && !e.target.closest('.notif-btn')) {
+      panel.classList.remove('open');
+    }
+  }
+});
+
+// ════════════════════════════════
+// EXPAND / COLLAPSE  (call log & orders)
+// ════════════════════════════════
+function toggleExpand(id, hd) {
+  var el   = document.getElementById(id);
+  var btn  = hd.querySelector('.expand-btn svg');
+  var isOpen = el.style.display === 'grid' || el.classList.contains('open');
+
+  if (isOpen) {
+    el.style.display = 'none';
+    el.classList.remove('open');
+    if (btn) btn.innerHTML = '<polyline points="6 9 12 15 18 9"/>';
+  } else {
+    el.style.display = 'grid';
+    el.classList.add('open');
+    if (btn) btn.innerHTML = '<polyline points="18 15 12 9 6 15"/>';
+  }
+}
+
+// ════════════════════════════════
+// SETTINGS TABS
+// ════════════════════════════════
+function setStab(btn, panelId) {
+  document.querySelectorAll('.stab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.stab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById(panelId).classList.add('active');
+}
+
+// ════════════════════════════════
+// CLOCK
+// ════════════════════════════════
+function updateClock() {
+  var now  = new Date();
+  var h    = now.getHours();
+  var m    = now.getMinutes();
+  var s    = now.getSeconds();
+  var ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  var el = document.getElementById('clock');
+  if (el) el.textContent =
+    pad(h) + ':' + pad(m) + ':' + pad(s) + ' ' + ampm;
+}
+function pad(n){ return n < 10 ? '0' + n : String(n); }
+setInterval(updateClock, 1000);
+updateClock();
+
+// ════════════════════════════════
+// FIX: pages use style.display, not .hidden class
+// initialise all inner pages as hidden via style
+// ════════════════════════════════
+(function initPages(){
+  ['plants','dashboard','calllog','orders','settings'].forEach(function(p){
+    var el = document.getElementById('page-' + p);
+    if (el) el.style.display = 'none';
+  });
+})();
+</script>
+
+<!-- ════════════════════════════════════════
+     PLANT DETAIL SCREEN
+════════════════════════════════════════ -->
+<style>
+/* Plant Detail */
+#s-plant-detail { flex-direction: column; background: var(--bg); }
+.pd-topbar {
+  height: 50px; background: var(--navy);
+  display: flex; align-items: center; padding: 0 24px; gap: 14px; flex-shrink: 0;
+}
+.pd-back-btn {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 7px; padding: 6px 14px;
+  font-family: var(--font); font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85);
+  cursor: pointer; transition: background 0.15s;
+}
+.pd-back-btn:hover { background: rgba(255,255,255,0.18); }
+.pd-back-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.pd-logo { display: flex; align-items: center; gap: 8px; margin-left: 4px; }
+.pd-logo-icon { width: 28px; height: 28px; border-radius: 7px; border: 1.5px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; }
+.pd-logo-name { font-size: 13px; font-weight: 800; color: #fff; font-family: var(--poppins); }
+.pd-logo-sub { font-size: 8.5px; font-weight: 600; letter-spacing: 1.5px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+.pd-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+.pd-time { font-size: 12.5px; color: rgba(255,255,255,0.5); }
+.pd-signout { font-family: var(--font); font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); background: none; border: none; cursor: pointer; }
+
+.pd-body { flex: 1; overflow-y: auto; }
+
+/* Header banner */
+.pd-header {
+  background: var(--navy);
+  padding: 28px 36px 0;
+  position: relative;
+  overflow: hidden;
+}
+.pd-header::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(47,84,235,0.25) 0%, transparent 65%);
+  pointer-events: none;
+}
+.pd-header-inner { display: flex; align-items: flex-start; gap: 20px; position: relative; z-index: 1; }
+.pd-plant-avatar {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: var(--blue); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; box-shadow: 0 4px 16px rgba(47,84,235,0.35);
+}
+.pd-plant-avatar svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pd-plant-name { font-family: var(--poppins); font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; letter-spacing: -0.3px; }
+.pd-plant-loc { font-size: 13px; color: rgba(255,255,255,0.55); display: flex; align-items: center; gap: 5px; }
+.pd-plant-loc svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.pd-live-badge { display: flex; align-items: center; gap: 6px; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); border-radius: 99px; padding: 5px 12px; font-size: 12px; font-weight: 700; color: #4ade80; margin-left: auto; }
+.pd-live-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: pulse 1.5s ease infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+/* Stat tabs */
+.pd-stat-tabs {
+  display: flex; gap: 0; margin-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.pd-stat-tab {
+  flex: 1; padding: 16px 20px; text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.08); cursor: pointer;
+  transition: background 0.15s;
+}
+.pd-stat-tab:last-child { border-right: none; }
+.pd-stat-tab:hover { background: rgba(255,255,255,0.04); }
+.pd-stat-tab-val { font-family: var(--poppins); font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.pd-stat-tab-label { font-size: 10px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+
+/* Content */
+.pd-content { padding: 28px 36px; display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
+
+.pd-card { background: #fff; border-radius: 14px; border: 1px solid var(--border); overflow: hidden; }
+.pd-card-header { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.pd-card-title { font-size: 14px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+.pd-card-title svg { width: 15px; height: 15px; stroke: var(--blue); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pd-card-action { font-size: 12.5px; font-weight: 600; color: var(--blue); cursor: pointer; background: none; border: none; font-family: var(--font); }
+
+/* Agent card in detail */
+.pd-agent-body { padding: 20px; }
+.pd-agent-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.pd-agent-icon { width: 44px; height: 44px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.pd-agent-icon svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pd-agent-name { font-size: 15px; font-weight: 700; color: var(--navy); }
+.pd-agent-sub { font-size: 12px; color: var(--text2); }
+.pd-info-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.pd-info-row:last-child { border-bottom: none; }
+.pd-info-label { color: var(--text3); font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.pd-info-val { color: var(--navy); font-weight: 600; }
+.pd-phone-val { color: var(--blue); font-weight: 700; font-size: 14px; }
+
+/* Call list */
+.pd-call-item { display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s; }
+.pd-call-item:hover { background: #f8faff; }
+.pd-call-item:last-child { border-bottom: none; }
+.pd-call-avatar { width: 36px; height: 36px; border-radius: 10px; background: #eff6ff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pd-call-avatar svg { width: 16px; height: 16px; stroke: var(--blue); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pd-call-name { font-size: 13.5px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+.pd-call-time { font-size: 12px; color: var(--text2); }
+.pd-call-right { margin-left: auto; text-align: right; }
+.pd-call-duration { font-size: 12px; color: var(--text3); }
+.pd-call-badge { display: inline-block; background: #dcfce7; color: #15803d; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 99px; margin-top: 2px; }
+
+/* Quick actions */
+.pd-actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px 20px; }
+.pd-action-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 16px 10px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; font-family: var(--font); font-size: 12.5px; font-weight: 600; color: var(--text2); transition: all 0.15s; text-align: center; }
+.pd-action-btn:hover { border-color: var(--blue); color: var(--blue); background: #f0f5ff; }
+.pd-action-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Chart mini */
+.pd-mini-chart { padding: 16px 20px; }
+.pd-mini-bars { display: flex; align-items: flex-end; gap: 6px; height: 80px; }
+.pd-mini-bar { flex: 1; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, #4a90e2, #2f54eb); min-height: 8px; }
+.pd-mini-labels { display: flex; gap: 6px; margin-top: 6px; }
+.pd-mini-label { flex: 1; text-align: center; font-size: 9.5px; color: var(--text3); }
+</style>
+
+<div class="screen" id="s-plant-detail" style="overflow:hidden;">
+  <!-- Topbar -->
+  <div class="pd-topbar">
+    <button class="pd-back-btn" onclick="goBackToPlants()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Your Plants
+    </button>
+    <div class="pd-logo" style="margin-left:12px;">
+      <div class="pd-logo-icon">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.8"/><path d="M10 6.5C8.067 6.5 6.5 8.067 6.5 10S8.067 13.5 10 13.5c1.38 0 2.576-.79 3.17-1.95" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M13.5 9.5l-.3-1.8-1.7 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="pd-logo-name">VAULLER</div>
+        <div class="pd-logo-sub">Dispatch AI</div>
+      </div>
+    </div>
+    <div class="pd-right">
+      <div style="text-align:right;"><div style="font-size:14px;font-weight:700;color:#fff;" id="pd-orders-count">10</div><div style="font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);">Orders</div></div>
+      <button class="notif-btn" style="width:30px;height:30px;">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+      </button>
+      <div class="pd-time" id="pd-clock">07:32:34 PM</div>
+      <button class="pd-signout" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="pd-body">
+    <!-- Plant header banner -->
+    <div class="pd-header">
+      <div class="pd-header-inner">
+        <div class="pd-plant-avatar">
+          <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div>
+          <div class="pd-plant-name" id="pd-plant-name">Riverside Ready Mix</div>
+          <div class="pd-plant-loc">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span id="pd-plant-loc">Riverside, MN</span>
+          </div>
+        </div>
+        <div class="pd-live-badge">
+          <div class="pd-live-dot"></div>
+          AI LIVE
+        </div>
+      </div>
+      <!-- Stats strip -->
+      <div class="pd-stat-tabs">
+        <div class="pd-stat-tab">
+          <div class="pd-stat-tab-val" id="pd-orders">10</div>
+          <div class="pd-stat-tab-label">Orders Today</div>
+        </div>
+        <div class="pd-stat-tab">
+          <div class="pd-stat-tab-val" id="pd-calls">52</div>
+          <div class="pd-stat-tab-label">Total Calls</div>
+        </div>
+        <div class="pd-stat-tab">
+          <div class="pd-stat-tab-val">4:42</div>
+          <div class="pd-stat-tab-label">Avg Duration</div>
+        </div>
+        <div class="pd-stat-tab">
+          <div class="pd-stat-tab-val">96.2%</div>
+          <div class="pd-stat-tab-label">Success Rate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="pd-content">
+      <!-- LEFT column -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Recent Calls -->
+        <div class="pd-card">
+          <div class="pd-card-header">
+            <div class="pd-card-title">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+              Recent Calls
+            </div>
+            <button class="pd-card-action" onclick="goToSidebarPage('calllog')">View All →</button>
+          </div>
+          <div class="pd-call-item">
+            <div class="pd-call-avatar"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
+            <div><div class="pd-call-name">Hartman Construction</div><div class="pd-call-time">Today, 10:24 AM · ORD-2847</div></div>
+            <div class="pd-call-right"><div class="pd-call-duration">02:34</div><div class="pd-call-badge">COMPLETED</div></div>
+          </div>
+          <div class="pd-call-item">
+            <div class="pd-call-avatar"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
+            <div><div class="pd-call-name">Riverside Builders</div><div class="pd-call-time">Today, 09:45 AM · ORD-2848</div></div>
+            <div class="pd-call-right"><div class="pd-call-duration">03:12</div><div class="pd-call-badge">COMPLETED</div></div>
+          </div>
+          <div class="pd-call-item">
+            <div class="pd-call-avatar"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
+            <div><div class="pd-call-name">Metro Foundations</div><div class="pd-call-time">Today, 08:30 AM · ORD-2849</div></div>
+            <div class="pd-call-right"><div class="pd-call-duration">01:58</div><div class="pd-call-badge">COMPLETED</div></div>
+          </div>
+        </div>
+
+        <!-- Weekly chart -->
+        <div class="pd-card">
+          <div class="pd-card-header">
+            <div class="pd-card-title">
+              <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              Weekly Order Volume
+            </div>
+            <span style="font-size:11px;font-weight:700;color:var(--text3);letter-spacing:0.5px;">LAST 7 DAYS</span>
+          </div>
+          <div class="pd-mini-chart">
+            <div class="pd-mini-bars">
+              <div class="pd-mini-bar" style="height:55px;"></div>
+              <div class="pd-mini-bar" style="height:45px;"></div>
+              <div class="pd-mini-bar" style="height:65px;"></div>
+              <div class="pd-mini-bar" style="height:40px;"></div>
+              <div class="pd-mini-bar" style="height:70px;opacity:0.6;"></div>
+              <div class="pd-mini-bar" style="height:35px;opacity:0.5;"></div>
+              <div class="pd-mini-bar" style="height:50px;opacity:0.5;"></div>
+            </div>
+            <div class="pd-mini-labels">
+              <div class="pd-mini-label">MON</div><div class="pd-mini-label">TUE</div><div class="pd-mini-label">WED</div><div class="pd-mini-label">THU</div><div class="pd-mini-label">FRI</div><div class="pd-mini-label">SAT</div><div class="pd-mini-label">SUN</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT column -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- AI Agent info -->
+        <div class="pd-card">
+          <div class="pd-card-header">
+            <div class="pd-card-title">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+              AI Dispatch Agent
+            </div>
+            <button class="pd-card-action" onclick="goToSidebarPage('settings')">Configure</button>
+          </div>
+          <div class="pd-agent-body">
+            <div class="pd-agent-row">
+              <div class="pd-agent-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
+              <div><div class="pd-agent-name">Dispatch AI Agent</div><div class="pd-agent-sub">AI Voice Assistant</div></div>
+              <div style="margin-left:auto;display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--green);">
+                <div style="width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite;"></div>LIVE
+              </div>
+            </div>
+            <div class="pd-info-row"><span class="pd-info-label">Phone Number</span><span class="pd-phone-val">+1 (507) 882-4410</span></div>
+            <div class="pd-info-row"><span class="pd-info-label">Status</span><span style="display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--green);">● Handling Calls 24/7</span></div>
+            <div class="pd-info-row"><span class="pd-info-label">Admin Email</span><span class="pd-info-val" id="pd-admin-email">mike@vauller.com</span></div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="pd-card">
+          <div class="pd-card-header">
+            <div class="pd-card-title">
+              <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Quick Actions
+            </div>
+          </div>
+          <div class="pd-actions-grid">
+            <button class="pd-action-btn" onclick="goToSidebarPage('calllog')">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              View Call Log
+            </button>
+            <button class="pd-action-btn" onclick="goToSidebarPage('orders')">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Order History
+            </button>
+            <button class="pd-action-btn" onclick="goToSidebarPage('dashboard')">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Dashboard
+            </button>
+            <button class="pd-action-btn" onclick="goToSidebarPage('settings')">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+              Settings
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Sign Up handler ──────────────────────
+function handleSignUp() {
+  var email = document.getElementById('su-email').value.trim();
+  // Store signup email for OTP screen display
+  window._signupEmail = email || 'your@email.com';
+  // Update OTP screen email display
+  var emailDisplays = document.querySelectorAll('.verify-email-display');
+  emailDisplays.forEach(function(el){ el.textContent = window._signupEmail; });
+  showScreen('s-verify');
+}
+
+function toggleSuPass() {
+  var inp = document.getElementById('su-pass');
+  if (inp) inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+// Password strength meter
+document.addEventListener('DOMContentLoaded', function(){
+  var pw = document.getElementById('su-pass');
+  if (pw) {
+    pw.addEventListener('input', function(){
+      var v = pw.value;
+      var strength = 0;
+      if (v.length >= 8) strength++;
+      if (/[A-Z]/.test(v)) strength++;
+      if (/[0-9]/.test(v)) strength++;
+      if (/[^A-Za-z0-9]/.test(v)) strength++;
+      var colors = ['#ef4444','#f97316','#eab308','#22c55e'];
+      for (var i = 1; i <= 4; i++) {
+        var bar = document.getElementById('ps' + i);
+        if (bar) bar.style.background = i <= strength ? colors[strength - 1] : 'var(--border)';
+      }
+    });
+  }
+});
+
+// ── Plant: click View Details → go to sidebar with Dashboard active ───
+var _currentPlantIdx = 0;
+
+function openPlantDetail(idx) {
+  _currentPlantIdx = idx;
+  var p = plants[idx];
+  if (!p) return;
+
+  // Populate plant detail screen fields
+  var nameEl = document.getElementById('pd-plant-name');
+  var locEl  = document.getElementById('pd-plant-loc');
+  var ordEl  = document.getElementById('pd-orders');
+  var callEl = document.getElementById('pd-calls');
+  var admEl  = document.getElementById('pd-admin-email');
+  var cntEl  = document.getElementById('pd-orders-count');
+  if (nameEl) nameEl.textContent = p.name;
+  if (locEl)  locEl.textContent  = p.loc;
+  if (ordEl)  ordEl.textContent  = p.orders;
+  if (callEl) callEl.textContent = p.calls;
+  if (admEl)  admEl.textContent  = p.email;
+  if (cntEl)  cntEl.textContent  = p.orders;
+
+  // Update plant pill labels in sidebar pages
+  document.querySelectorAll('.plant-pill').forEach(function(el){
+    var spans = el.querySelectorAll('span, div');
+    // last text node
+    var last = el.lastChild;
+    while (last && last.nodeType !== 3) last = last.previousSibling;
+    if (last) last.textContent = ' ' + p.name;
+  });
+
+  // Update breadcrumb in sidebar topbar
+  var breadcrumb = document.getElementById('topbar-plant-name');
+  if (breadcrumb) breadcrumb.textContent = p.name;
+
+  // Switch to s-app, show sidebar, open Dashboard
+  showScreen('s-app');
+  var sidebarEl = document.getElementById('app-with-sidebar');
+  var emptyEl   = document.getElementById('empty-state');
+  if (sidebarEl) sidebarEl.style.display = 'flex';
+  if (emptyEl)   emptyEl.style.display   = 'none';
+  var ordersEl = document.getElementById('topbar-orders');
+  if (ordersEl) {
+    ordersEl.style.display = 'block';
+    var numEl = ordersEl.querySelector('.topbar-orders-num');
+    if (numEl) numEl.textContent = p.orders;
+  }
+  // ← Dashboard is first page shown after clicking View Details
+  setNav('dashboard');
+}
+
+function goBackToPlants() {
+  // Go back to standalone plants screen (no sidebar)
+  buildPlantsGrid();
+  showScreen('s-plants');
+}
+
+// Navigate from sidebar pages to another sidebar page
+function goToSidebarPage(page) {
+  showScreen('s-app');
+  var sidebarEl = document.getElementById('app-with-sidebar');
+  var emptyEl   = document.getElementById('empty-state');
+  if (sidebarEl) sidebarEl.style.display = 'flex';
+  if (emptyEl)   emptyEl.style.display   = 'none';
+  var ordersEl = document.getElementById('topbar-orders');
+  if (ordersEl) ordersEl.style.display = 'block';
+  setNav(page);
+}
+  showScreen('s-app');
+  var sidebarEl = document.getElementById('app-with-sidebar');
+  var emptyEl   = document.getElementById('empty-state');
+  if (sidebarEl) sidebarEl.style.display = 'flex';
+  if (emptyEl)   emptyEl.style.display   = 'none';
+  var ordersEl = document.getElementById('topbar-orders');
+  if (ordersEl) ordersEl.style.display = 'block';
+  setNav(page);
+}
+
+// Update plant detail clock
+setInterval(function(){
+  var el = document.getElementById('pd-clock');
+  if (el) {
+    var now = new Date();
+    var h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+    var ampm = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+    el.textContent = pad(h)+':'+pad(m)+':'+pad(s)+' '+ampm;
+  }
+}, 1000);
+</script>
+</body>
+</html>
